@@ -20,31 +20,18 @@ def divide_textfile(path, encoding="utf-8"):
     return (meta_raw, meta_type, meta_data), body_raw
 
 
-def alter_html_images(html_text, is_sub=True):
-    """
-    本地图片都替换到文件同级目录下。
-    todo bug 还是潜在风险： 比如图片是在代码块中的（非图片元素）。
-
-    通过正则得到图片路径字符串并替换:
-    结果=[全部图片字符串，前缀，字符串路径，盘符，根目录，子目录，文件名，文件后缀，后缀]
-    """
+def get_img_pattern(img_type: str):
+    assert img_type and img_type.lower() in ['markdown', 'html']
     pchar1 = r'/\\'
     pchar2 = r'<>'
     pchar4 = r'"()\^' + pchar2 + pchar1
     image_suffix = '(jpeg|jpg|png|gif|webp|svg|tiff|bmp|jp2|heic)'
     pattern_image = rf'(\w:)?([{pchar1}]?)((?:[^{pchar4}]+[{pchar1}])*?)([^{pchar4}]*\.{image_suffix})'  # 匹配的图片格式
     pattern2 = rf'((<img\s+[^{pchar2}]*?src=")({pattern_image})("(?:\s+[^{pchar2}]+)?>))'  # html<img>标签
-
-    images = re.findall(pattern2, html_text)
-    image_paths = sorted(set([img[2] for img in images]))
-    if is_sub:
-        new_text = re.sub(pattern2, r'\2\7\9', html_text)  # 从1开始
+    if img_type.lower() == 'markdown':
+        return re.compile(pattern_image), 5, 3
     else:
-        new_text = html_text
-
-    logging.debug('find local images-count={}/{}, images={}'.format(
-        len(images), len(image_paths), image_paths[:5]))
-    return image_paths, new_text
+        return re.compile(pattern2), 9, (2, 6)
 
 
 def _read_textfile(path, encoding):
