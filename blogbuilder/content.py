@@ -8,7 +8,7 @@ from pathlib import PurePath
 from typing import Union
 
 from .utils.dateutil import get_date_part, get_datetime
-from .utils.fileutil import alter_html_images, divide_textfile
+from .utils.fileutil import divide_textfile
 from .utils.mdutil import MarkdownParser
 from .utils.pathutil import concat_path, is_index_filename, obtain_file_stem, obtain_file_suffix
 
@@ -112,17 +112,33 @@ class BlogMeta:
 
 
 class BlogBody:
-    def __init__(self, body_raw) -> None:
+    def __init__(self, body_raw, toc=False) -> None:
         self.parser_markdown = MarkdownParser()
         self.raw = body_raw
         self.text = "".join(body_raw)
 
-        raw_html_text = self.parser_markdown(self.text)
-        self._images, self._html = alter_html_images(raw_html_text)
+        if toc:
+            logging.debug("post with toc")
+            raw_html_toc, raw_html_text = self.parser_markdown(self.text, toc)
+        else:
+            raw_html_toc = None
+            raw_html_text = self.parser_markdown(self.text)
+        # self._images, self._html = alter_html_images(raw_html_text)
+        self._html = raw_html_text
+        self._html_toc = raw_html_toc
+
+        img = self.parser_markdown.get_images_map()
+        self._images = set([i[0] for i in img])
+        if len(img) > 0:
+            logging.warning("parser_markdown = {}".format(img))
 
     @property
     def html(self):
         return self._html
+
+    @property
+    def toc(self):
+        return self._html_toc
 
     @property
     def images(self):
@@ -138,7 +154,7 @@ class BlogContent:
     topic2/project1/project1.md -> /topic2/project1/index.html
     """
 
-    def __init__(self, dirpath, filename, subdirs=None, max_depth=-1) -> None:
+    def __init__(self, dirpath, filename, subdirs=None, max_depth=-1, toc=False) -> None:
         self.dirpath = dirpath
         self.subdirs = subdirs
 
@@ -156,6 +172,7 @@ class BlogContent:
             self.slug = name
         self.slug = re.sub(r"[\s_.]+", "-", self.slug)
 
+        self.toc = toc
         self.charset = "utf-8"
         self.filepath = concat_path(dirpath, filename)
         self.filename = filename
@@ -221,5 +238,5 @@ class BlogContent:
             meta_data = {}
             body_raw = ""
         meta = BlogMeta(meta_data)
-        body = BlogBody(body_raw)
+        body = BlogBody(body_raw, self.toc)
         return meta, body
