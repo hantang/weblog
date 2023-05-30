@@ -5,7 +5,7 @@ import logging
 import os
 import re
 from pathlib import PurePath
-from typing import Union
+from typing import Tuple, Union
 
 from .utils.dateutil import get_date_part, get_datetime
 from .utils.fileutil import divide_textfile
@@ -112,18 +112,22 @@ class BlogMeta:
 
 
 class BlogBody:
-    def __init__(self, body_raw, toc=False) -> None:
+    def __init__(self, body_raw) -> None:
         self.parser_markdown = MarkdownParser()
         self.raw = body_raw
         self.text = "".join(body_raw)
 
+        self._html = ""
+        self._html_toc = ""
+        self._images = []
+
+    def render(self, toc):
         if toc:
-            logging.debug("post with toc")
-            raw_html_toc, raw_html_text = self.parser_markdown(self.text, toc)
+            logging.warning("post with toc")
+            raw_html_text, raw_html_toc = self.parser_markdown(self.text, toc)
         else:
-            raw_html_toc = None
             raw_html_text = self.parser_markdown(self.text)
-        # self._images, self._html = alter_html_images(raw_html_text)
+            raw_html_toc = None
         self._html = raw_html_text
         self._html_toc = raw_html_toc
 
@@ -216,8 +220,14 @@ class BlogContent:
         logging.debug("-->>> content info = {}".format(info))
         return info
 
+    def render(self, layout=None, toc=False):
+        self.body.render(toc)
+
     def get_output(self):
         return self.body.html
+
+    def get_toc(self):
+        return self.body.toc
 
     def get_images(self):
         dirpath = self.dirpath
@@ -226,7 +236,7 @@ class BlogContent:
         ]
         return images_path
 
-    def _parse_file(self) -> Union[BlogMeta, BlogBody]:
+    def _parse_file(self) -> tuple[BlogMeta, BlogBody]:
         """
         1. 元数据信息解析, 得到url
         2. 正文内容解析，得到图片路径
@@ -238,5 +248,5 @@ class BlogContent:
             meta_data = {}
             body_raw = ""
         meta = BlogMeta(meta_data)
-        body = BlogBody(body_raw, self.toc)
+        body = BlogBody(body_raw)
         return meta, body

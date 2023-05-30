@@ -158,6 +158,8 @@ class BlogTheme:
 
     def _render(self, page_data: BlogContent, layout=ThemeSkeleton.layout_page, **kwargs):
         page_layout = page_data.get_layout(layout)
+        toc = True if page_layout == ThemeSkeleton.layout_post else False
+        page_data.render(page_layout, toc)
         if page_layout == ThemeSkeleton.layout_index:
             self._render_index(page_data)
         elif page_layout == ThemeSkeleton.layout_page:
@@ -190,6 +192,7 @@ class BlogTheme:
         params = self.params.copy()
 
         params["post_title"] = post_content.meta.title
+        params["post_toc"] = post_content.get_toc()
         params["post_content"] = post_content.get_output()
         params["post_prev"] = post_content.url_prev
         params["post_next"] = post_content.url_next
@@ -201,7 +204,7 @@ class BlogTheme:
         save_dir = post_content.url_base
         self._save(out, save_dir)
 
-    def _render_page(self, page_index: BlogContent, pages: List[BlogContent] = None):
+    def _render_page(self, page_index: BlogContent, pages = None):
         """
         两个部分：topic/index.md中内容 + topic/xxx 文章列表(标题+日期)
         """
@@ -213,7 +216,8 @@ class BlogTheme:
         if page_index:
             params["post_content"] = page_index.get_output()  # markdown -> html
 
-        if pages is None: pages = []
+        if pages is None:
+            pages = []
         pages_list = []
         for page in pages[::-1]:
             pages_list.append({
