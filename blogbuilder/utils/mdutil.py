@@ -18,7 +18,7 @@ def heading_id(token, index):
 
 def render_html_toc(toc_items, title=None, collapse=False):
     if not title:
-        title = "Table of Contents"
+        title = "Table of Contents".upper()
     content = render_toc_ul(toc_items)
 
     html = '<details class="toc"'
@@ -112,24 +112,23 @@ class MarkdownParser:
             "subscript",
             "math",
         ]
-
         self.parser = mistune.create_markdown(renderer=MyRenderer(False), plugins=plugins)
         add_toc_hook(self.parser, min_level, max_level, heading_id=heading_id)
 
     def parse(self, s: str):
         return self.parser(s)
 
-    def parse_toc(self, s: str):
+    def parse_toc(self, s: str, title=None):
         html, state = self.parser.parse(s)
         toc_items = state.env["toc_items"]
-        toc_html = render_html_toc(toc_items)
+        toc_html = render_html_toc(toc_items, title=title)
         return html, toc_html
 
-    def __call__(self, s: str, toc=False):
+    def __call__(self, s: str, toc=False, title=None):
         if s is None:
             s = "\n"
         if toc:
-            return self.parse_toc(s)
+            return self.parse_toc(s, title)
         return self.parse(s)
 
     def get_images_map(self):
