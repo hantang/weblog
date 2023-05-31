@@ -184,7 +184,7 @@ class BlogTheme:
         layout_name = ".".join([layout, ThemeSkeleton.suffix])
         params = self.params.copy()
         params["post_content"] = post_index.get_output()
-        params["since_year"] = get_date_part(params["info"].get("since"))[0]
+        params["info"]["since_year"] = get_date_part(params["info"].get("since"))[0]
         out = self.template(layout_name, params)
         self._save(out, post_index.url_base, post_index.url_name)
 
