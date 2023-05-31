@@ -189,7 +189,7 @@ class BlogContent:
         # self.url_full = "{}/{}".format(self.url_base, self.url_name).lstrip("/")
         self.url_prev = None
         self.url_next = None
-        self.url_topic = None
+        self.url_topic = self.topic.strip("/")
 
     def update_meta(self, new_meta, overwrite=False):
         self.meta.update_meta(new_meta, overwrite)
@@ -197,9 +197,9 @@ class BlogContent:
     def get_meta(self):
         return self.meta.get_meta()
 
-    def set_urls(self, prev, next):
-        self.url_prev = prev
-        self.url_next = next
+    def set_urls(self, url_prev, url_next):
+        self.url_prev = url_prev.strip("/") if url_prev else None
+        self.url_next = url_next.strip("/") if url_next else None
 
     def get_layout(self, default="page"):
         # todo

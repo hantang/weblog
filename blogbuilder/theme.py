@@ -198,11 +198,13 @@ class BlogTheme:
         params["post_title"] = post_content.meta.title
         params["post_toc"] = post_content.get_toc()
         params["post_content"] = post_content.get_output()
-        params["post_prev"] = post_content.url_prev
-        params["post_next"] = post_content.url_next
+
         info = post_content.get_info()
         params["post_datetime"] = info["datetime"]
         params["post_author"] = info["author"]
+        params["post_url_prev"] = None if post_content.url_prev is None else "/{}/".format(post_content.url_prev)
+        params["post_url_next"] = None if post_content.url_next is None else "/{}/".format(post_content.url_next)
+        params["post_url_topic"] = "/{}/".format(post_content.url_topic)
 
         out = self.template(layout_name, params)
         save_dir = post_content.url_base
@@ -242,9 +244,7 @@ class BlogTheme:
         ym_keys = sorted(pages_by_ym.keys(), reverse=True)
         pages_by_ym2 = [{"year_month": ym, "posts": pages_by_ym[ym]} for ym in ym_keys]
 
-        # params["post_list"] = pages_list  # generate post list
-
-        # todo 分页
+        # pagination
         pages_cnt = len(pages_list)
         paginate = page_index.meta.paginate
         if 0 < paginate < pages_cnt:
