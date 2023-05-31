@@ -78,7 +78,7 @@ class BlogMeta:
 
     @property
     def paginate(self):
-        return self._paginate
+        return 0 if self._paginate is None else self._paginate
 
     def _get(self):
         self._title = self.meta_data.get("title", "")
@@ -186,9 +186,10 @@ class BlogContent:
 
         self.url_base = "{}/{}".format(self.topic, self.slug).strip("/")
         self.url_name = "index.html"
-        self.url_full = "{}/{}".format(self.url_base, self.url_name).lstrip("/")
+        # self.url_full = "{}/{}".format(self.url_base, self.url_name).lstrip("/")
         self.url_prev = None
         self.url_next = None
+        self.url_topic = None
 
     def update_meta(self, new_meta, overwrite=False):
         self.meta.update_meta(new_meta, overwrite)
