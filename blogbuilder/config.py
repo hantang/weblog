@@ -32,7 +32,7 @@ class BlogConfig:
         self._meta_params = self._proc_meta()
         self._menu2 = self._proc_menu()
 
-        self._remained_dir = ["assets", "static", "drafts", "archives"]
+        self._remained_dir = ["assets", "static", "drafts", "archives", "page"]
         self._max_depth = 3
 
     def _proc_menu(self):

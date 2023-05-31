@@ -1,7 +1,9 @@
 """generate html files with jinja2 templates"""
 import logging
+import math
 import os
 import shutil
+from collections import defaultdict
 from pathlib import Path, PurePath
 from typing import List
 
@@ -25,6 +27,11 @@ class ThemeSkeleton:
     layout_404 = "404"
     suffix = "html"
     favicon_name = "favicon.ico"
+
+    # "assets", "static", "drafts", "archives", "page"
+    remained_drafts = "drafts"
+    remained_archives = "archives"
+    remained_page = "page"
 
 
 class BlogTheme:
@@ -178,8 +185,7 @@ class BlogTheme:
         params["post_content"] = post_index.get_output()
         params["since_year"] = get_date_part(params["info"].get("since"))[0]
         out = self.template(layout_name, params)
-        save_dir = post_index.url_base
-        self._save(out, save_dir)
+        self._save(out, post_index.url_base, post_index.url_name)
 
     def _render_post(self, post_content: BlogContent):
         """
@@ -200,7 +206,7 @@ class BlogTheme:
 
         out = self.template(layout_name, params)
         save_dir = post_content.url_base
-        self._save(out, save_dir)
+        self._save(out, post_content.url_base, post_content.url_name)
 
     def _render_page(self, page_index: BlogContent, pages=None):
         """
@@ -226,23 +232,58 @@ class BlogTheme:
                 "author": page["author"],
             })
 
-        pages_by_ym = {}
+        pages_by_ym = defaultdict[list]
         for entry in pages_list:
             ym = entry["date_year_month"]
-            if ym not in pages_by_ym:
-                pages_by_ym[ym] = [entry]
-            else:
-                pages_by_ym[ym].append(entry)
+            pages_by_ym[ym].append(entry)
         ym_keys = sorted(pages_by_ym.keys(), reverse=True)
         pages_by_ym2 = [{"year_month": ym, "posts": pages_by_ym[ym]} for ym in ym_keys]
 
-        params["post_list"] = pages_list  # generate post list
-        params["post_list_grouped"] = pages_by_ym2
-        # todo 分页
+        # params["post_list"] = pages_list  # generate post list
 
-        out = self.template(layout_name, params)
-        save_dir = page_index.url_base
-        self._save(out, save_dir)
+        # todo 分页
+        pages_cnt = len(pages_list)
+        paginate = page_index.meta.paginate
+        if 0 < paginate < pages_cnt:
+            logging.info("use paginate = {}, pages_cnt={}".format(paginate, pages_cnt))
+            paginate_total = int(math.ceil(pages_cnt/paginate))
+            pages_by_ym2a = [
+                (pages['year_month'], post) for pages in pages_by_ym2 for post in pages['posts']
+            ]
+            for start in range(0, pages_cnt, paginate):
+                parts = pages_by_ym2a[start:start+paginate]
+                pages_by_ym2b = defaultdict(list)
+                for ym, post in parts:
+                    pages_by_ym2b[ym].append(post)
+                ym_keys = sorted(pages_by_ym2b.keys(), reverse=True)
+                pages_by_ym2c = [{"year_month": ym, "posts": pages_by_ym2b[ym]} for ym in ym_keys]
+                paginate_index = start//paginate + 1
+                params["post_list_grouped"] = pages_by_ym2c
+                params["post_list_index"] = paginate_index
+                params["post_list_total"] = paginate_total
+
+                save_dir = page_index.url_base
+
+                logging.info(f"layout_name={layout_name}, save_dir={save_dir}, {page_index.url_name}")
+                params["post_list_next"] = None
+                if start + paginate < pages_cnt:
+                    params["post_list_next"] = "/{}/{}/{}/".format(save_dir, ThemeSkeleton.remained_page, paginate_index+1)
+
+                params["post_list_prev"] = None
+                if start == paginate:
+                    params["post_list_prev"] = f"/{save_dir}/"
+                elif start > paginate:
+                    params["post_list_prev"] = "/{}/{}/{}/".format(save_dir, ThemeSkeleton.remained_page, paginate_index-1)
+
+                out = self.template(layout_name, params)
+                if start > 0:
+                    save_dir = "{}/{}/{}".format(save_dir, ThemeSkeleton.remained_page, paginate_index)
+                self._save(out, save_dir, page_index.url_name)
+        else:
+            params["post_list_grouped"] = pages_by_ym2
+            params["post_list_total"] = 1
+            out = self.template(layout_name, params)
+            self._save(out, page_index.url_base, page_index.url_name)
 
     def _render_404(self):
         """
@@ -254,7 +295,7 @@ class BlogTheme:
         out = self.template(layout_name, params)
         self._save(out, save_dir=None, save_name=layout_name)
 
-    def _save(self, output, save_dir=None, save_name=ThemeSkeleton.layout_index, format_text=True):
+    def _save(self, output, save_dir, save_name, format_text=True):
         if not save_name.endswith(".html"):
             save_name += ".html"
 
