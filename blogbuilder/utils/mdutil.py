@@ -45,14 +45,14 @@ class MyRenderer(HTMLRenderer):
             info = safe_entity(info.strip())
             try:
                 lexer = get_lexer_by_name(info, stripall=True)
-                formatter = HtmlFormatter()  # linenos='table'/'inline, filename=info
+                formatter = HtmlFormatter()  # linenos=table/inline, filename=info
                 lang = info.split(None, 1)[0]
                 text = highlight(code, lexer, formatter)
                 out = text.replace("<pre>", "<pre><code>").replace("</pre>", "</code></pre>")
                 out = out.replace('class="highlight"', 'class="highlight language-{}"'.format(lang))
                 return out
             except:
-                logging.warning(f"error html.HtmlFormatter(), info={info}")
+                logging.warning(f"!!! HTMLRenderer, error HtmlFormatter(), info={info}")
         return super().block_code(code, info)
 
     def block_html(self, html: str) -> str:
@@ -60,7 +60,7 @@ class MyRenderer(HTMLRenderer):
         out = super().block_html(html)
         imgs, new_out = self._img_html(out)
         if imgs and len(imgs) > 0:
-            logging.error("block_html, image_urls={},  imgs = {}".format(self.image_urls, imgs))
+            logging.debug("==>> block_html, image_urls={}, imgs = {}".format(self.image_urls, imgs))
             for entry in imgs:
                 self.image_urls.append(entry[:2] + ["html"])
         return new_out
@@ -85,11 +85,11 @@ class MyRenderer(HTMLRenderer):
         out = re.findall(self.img_pattern_html, html)
         new_html = html
         if replace:
-            new_html = re.sub(self.img_pattern_html, r'\2\7\9', html)
+            new_html = re.sub(self.img_pattern_html, r"\2\7\9", html)
 
         if out and len(out) > 0:
             out = [[o[self.img_pattern_html_idx_full],
-                     o[self.img_pattern_html_idx]] for o in out]
+                    o[self.img_pattern_html_idx]] for o in out]
         return out, new_html
 
     def _img_src(self, img_url):

@@ -7,6 +7,7 @@ from typing import List
 
 from .config import BlogConfig
 from .content import BlogContent
+from .utils.dateutil import get_date_part
 from .utils.tplutil import TemplateUtil
 
 
@@ -42,8 +43,8 @@ class BlogTheme:
         self.charset = charset
 
         self.template = TemplateUtil(PurePath(theme_dir, ThemeSkeleton.layouts))
-        logging.debug(f"params = {self.params}")
-        logging.debug(f"meta_params = {self.meta_params}")
+        logging.debug(f"==>> params = {self.params}")
+        logging.debug(f"==>> meta_params = {self.meta_params}")
 
     def generate(self):
         topic_dict = self._group_contents()
@@ -94,7 +95,7 @@ class BlogTheme:
             save_path = Path(self.deploy_dir, ThemeSkeleton.static)
             if not save_path.exists():
                 save_path.mkdir()
-            logging.debug(f"copy {favicon} files to target={save_path}")
+            logging.debug(f"==>> copy {favicon} files to target={save_path}")
             shutil.copyfile(favicon, Path(save_path, ThemeSkeleton.favicon_name))
 
         # assets/{css, js}
@@ -102,17 +103,15 @@ class BlogTheme:
         for suffix in [ThemeSkeleton.css, ThemeSkeleton.js, ThemeSkeleton.fonts]:
             sub_assets_path = Path(assets_path, suffix)
             if sub_assets_path.exists():
-                logging.info(f"copy fonts = {sub_assets_path}")
+                logging.info(f"copy {suffix} = {sub_assets_path}")
                 if suffix == ThemeSkeleton.fonts:
-
                     assets_files = sub_assets_path.glob("*.ttf")
                 else:
                     assets_files = sub_assets_path.glob(f"*.{suffix}")
+
                 if len(list(assets_files)) > 0:
                     save_path = Path(self.deploy_dir, ThemeSkeleton.assets, suffix)
-                    # if not save_path.exists():
-                    #     save_path.mkdir()
-                    logging.debug(f"copy {suffix} files to target={save_path}")
+                    logging.debug(f"==>> copy {suffix} files to target={save_path}")
                     shutil.copytree(sub_assets_path, save_path)
 
     def _group_contents(self):
@@ -129,12 +128,12 @@ class BlogTheme:
                 "contents": [],
             }
 
-        logging.debug("topic_dict = {}".format(topic_dict.keys()))
+        logging.debug("==>> topic_dict = {}".format(topic_dict.keys()))
         for content in content_list:
             topic = content.topic
             slug = content.slug
             if topic not in topic_dict:
-                logging.debug("not used content, topic = {}/{}".format(topic, content.filepath))
+                logging.debug("==>> not used content, topic = {}/{}".format(topic, content.filepath))
                 continue
 
             if slug == "":
@@ -177,8 +176,7 @@ class BlogTheme:
         layout_name = ".".join([layout, ThemeSkeleton.suffix])
         params = self.params.copy()
         params["post_content"] = post_index.get_output()
-
-        logging.info("==>> params since {}".format(params['info']['since']))
+        params["since_year"] = get_date_part(params["info"].get("since"))[0]
         out = self.template(layout_name, params)
         save_dir = post_index.url_base
         self._save(out, save_dir)
@@ -204,7 +202,7 @@ class BlogTheme:
         save_dir = post_content.url_base
         self._save(out, save_dir)
 
-    def _render_page(self, page_index: BlogContent, pages = None):
+    def _render_page(self, page_index: BlogContent, pages=None):
         """
         两个部分：topic/index.md中内容 + topic/xxx 文章列表(标题+日期)
         """
@@ -240,7 +238,7 @@ class BlogTheme:
 
         params["post_list"] = pages_list  # generate post list
         params["post_list_grouped"] = pages_by_ym2
-        logging.info("post_list_grouped = {}".format(ym_keys))
+        # todo 分页
 
         out = self.template(layout_name, params)
         save_dir = page_index.url_base
@@ -256,7 +254,7 @@ class BlogTheme:
         out = self.template(layout_name, params)
         self._save(out, save_dir=None, save_name=layout_name)
 
-    def _save(self, output, save_dir=None, save_name=ThemeSkeleton.layout_index):
+    def _save(self, output, save_dir=None, save_name=ThemeSkeleton.layout_index, format_text=True):
         if not save_name.endswith(".html"):
             save_name += ".html"
 
@@ -266,10 +264,21 @@ class BlogTheme:
         if not save_path.exists():
             save_path.mkdir(parents=True)
 
+        new_output = output
+        if format_text:
+            lines = output.split("\n")
+            new_output = []
+            for line in lines:
+                line = line.strip()
+                if len(line) > 0:
+                    new_output.append(line)
+            new_output = "\n".join(new_output)
+            logging.debug(f"format text, from {len(output)} to {len(new_output)}")
+
         save_file = PurePath(save_path, save_name)
         with open(save_file, mode="w", encoding=self.charset) as fw:
-            logging.info(f"save data(count={len(output)}) to target={save_file}")
-            fw.write(output)
+            logging.info(f"save data(count={len(output)}/{len(new_output)}) to target={save_file}")
+            fw.write(new_output)
 
     def _save_image(self, page: BlogContent):
         save_dir = page.url_base
@@ -280,7 +289,7 @@ class BlogTheme:
         for img_path in images:
             if os.path.exists(img_path):
                 new_path = PurePath(save_path, PurePath(img_path).name)
-                logging.debug(f"copy {img_path} to {new_path}")
+                logging.debug(f"==>> copy {img_path} to {new_path}")
                 shutil.copyfile(img_path, new_path)
             else:
-                logging.warning(f"{img_path} not exists")
+                logging.warning(f"!!! {img_path} not exists")

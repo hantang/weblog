@@ -47,7 +47,7 @@ class BlogBuilder:
         self.theme_name = self.config.theme
         self.theme_dir = SiteSkeleton.themes + self.theme_name
         self.text_types = TextTypes()
-        logging.debug("init theme = {}".format(self.theme_dir))
+        logging.debug("==>> init theme = {}".format(self.theme_dir))
 
     def get_theme(self):
         # todo
@@ -65,7 +65,7 @@ class BlogBuilder:
         remained_dir = self.config.remained_dir
         max_depth = self.config.max_depth
         menu_dirs = self.config.menu_dirs
-        logging.info(f"content_dir = {content_dir}")
+        logging.debug(f"==>> content_dir = {content_dir}")
 
         candidate_dirs = get_keep_dirs(menu_dirs)
         candidate_files = get_keep_files(self.text_types.markdown, None)
@@ -92,7 +92,7 @@ class BlogBuilder:
 
             for filename in filenames:
                 if len(subdirs) == 0 and obtain_file_stem(filename) in remained_dir:
-                    logging.warning(f"error filename = {filename}, conflict to remained dir")
+                    logging.warning(f"!!! error filename = {filename}, conflict to remained dir")
                     continue
                 content = BlogContent(dirpath, filename, subdirs, max_depth)
                 content_list.append(content)
@@ -110,7 +110,7 @@ class BlogBuilder:
         template.generate_404()
         template.process_resources()
 
-    def clean(self):
+    def clean(self):  # todo overwrite
         if Path(self.deploy_dir).exists():
             logging.info(f"clean deploy_dir = {self.deploy_dir}")
             shutil.rmtree(self.deploy_dir)

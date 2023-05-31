@@ -10,7 +10,7 @@ def get_parser():
 
 def run():
     fmt = "%(asctime)s-%(name)s %(filename)s[%(lineno)d] - %(levelname)s: %(message)s"
-    logging.basicConfig(level=logging.WARNING, format=fmt)
+    logging.basicConfig(level=logging.INFO, format=fmt)
     builder = BlogBuilder()
     builder.build_all()
 

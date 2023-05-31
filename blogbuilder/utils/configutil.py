@@ -18,11 +18,11 @@ TOML_SEP = "=" * 3
 def loadf_config(filename: str, encoding: str = "utf-8") -> dict:
     data = {}
     if not os.path.exists(filename):
-        logging.error(f"config {filename} NOT EXISTS")
+        logging.error(f"??? config {filename} NOT EXISTS")
         return data
 
     filetype = check_config_type(filename)
-    logging.debug(f"{filename} type = `{filetype}`")
+    logging.debug(f"==>> {filename} type = `{filetype}`")
 
     with open(filename, encoding=encoding) as f:
         if filetype == YAML_SUFFIX:
@@ -35,7 +35,7 @@ def loadf_config(filename: str, encoding: str = "utf-8") -> dict:
 def loads_config(text: str, filetype: str) -> dict:
     data = {}
     text = text.strip()
-    logging.debug("config string, text len = {}".format(len(text)))
+    logging.debug("==>> config string, text len = {}".format(len(text)))
     if len(text) > 0:
         if filetype == YAML_FORMAT:
             data = yaml.safe_load(text)
@@ -46,7 +46,7 @@ def loads_config(text: str, filetype: str) -> dict:
 
 def check_config_type(filename: str) -> str:
     suffix = obtain_file_suffix(filename)
-    logging.debug(f"check config type, suffix = `{suffix}`")
+    logging.debug(f"==>> check config type, suffix = `{suffix}`")
     if suffix in YAML_SUFFIX:
         return YAML_FORMAT
     elif suffix in TOML_SUFFIX:
@@ -59,7 +59,7 @@ def check_config_sep(line_sep: str) -> bool:
 
 
 def obtain_config_type(line_sep: str) -> str:
-    logging.debug(f"check line sep type = `{line_sep}`")
+    logging.debug(f"==>> check line sep type = `{line_sep}`")
     if line_sep == YAML_SEP:
         return YAML_FORMAT
     elif line_sep == TOML_SEP:
