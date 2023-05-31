@@ -11,12 +11,12 @@ def divide_textfile(path, encoding="utf-8"):
         meta: meta-type, meta-data, meta-extra
         body: text, resources
     """
-    logging.debug(f"--> read text, path={path}")
+    logging.debug(f"==>>  read text, path={path}")
     raw_texts = _read_textfile(path, encoding)
     (meta_raw, meta_type), body_raw = _divide_text_parts(raw_texts, path)
     meta_data = loads_config("".join(meta_raw), meta_type)
 
-    logging.debug("--> read text, metatype={}, meta={}, body={}".format(meta_type, len(meta_raw), len(body_raw)))
+    logging.debug("==>>  read text, metatype={}, meta={}, body={}".format(meta_type, len(meta_raw), len(body_raw)))
     return (meta_raw, meta_type, meta_data), body_raw
 
 

@@ -70,9 +70,9 @@ def walk(top, max_depth=2, limit_dirs=None, limit_files=None, limit_hidden=True)
             or len(ignore_types) > 0 and len(keep_files) >= 0 and len(keep_types + ignore_files) == 0
             or len(keep_types) > 0 and len(ignore_files) >= 0 and len(ignore_types + keep_files) == 0)
 
-    logging.debug(f"dir: keep_dirs={keep_dirs}, ignore_dirs={ignore_dirs}")
-    logging.debug(f"files1: keep_types={keep_types}, ignore_files={ignore_files}")
-    logging.debug(f"files2: ignore_types={ignore_types}, keep_files={keep_files}")
+    logging.debug(f"==>> dir: keep_dirs={keep_dirs}, ignore_dirs={ignore_dirs}")
+    logging.debug(f"==>> files1: keep_types={keep_types}, ignore_files={ignore_files}")
+    logging.debug(f"==>> files2: ignore_types={ignore_types}, keep_files={keep_files}")
 
     return _walk(top, True, None, False,
                  max_depth, max_depth, keep_dirs, ignore_dirs,
@@ -106,21 +106,21 @@ def _walk(top, topdown, onerror, followlinks,
                 continue
 
             if flag_include in name or flag_type in name:
-                logging.warning(f"bad dir/file name = {name}")
+                logging.warning(f"!!! walk in top={top}, found bad dir/file name={name}")
 
             if is_dir:
                 if max_depth == total_depth:
                     # 顶级目录过滤
                     if keep_dirs:
                         if name in keep_dirs:
-                            logging.debug("Add keep dir = {}".format(name))
+                            logging.debug("==>> Add keep dir = {}".format(name))
                             dirs.append(name)
                     elif ignore_dirs:
                         if name not in ignore_dirs:
-                            logging.debug("Add not ignore dir = {}".format(name))
+                            logging.debug("==>> Add not ignore dir = {}".format(name))
                             dirs.append(name)
                     else:
-                        logging.debug("Add all dir = {}".format(name))
+                        logging.debug("==>> Add all dir = {}".format(name))
                         dirs.append(name)
                 else:
                     dirs.append(name)
@@ -136,9 +136,9 @@ def _walk(top, topdown, onerror, followlinks,
                 elif len(ignore_types) > 0:
                     if filetype not in ignore_types or name in keep_files:
                         nondirs.append(name)
-    logging.debug(f"top-dir={top}, dirs={dirs}, non-dirs={nondirs}")
-    logging.debug(f"  all-dirs={dirs_all}, filtered=({len(dirs_all) - len(dirs)})")
-    logging.debug(f"  all-non-dirs={nondirs_all}, filtered=({len(nondirs_all) - len(nondirs)})")
+    logging.debug(f"==>> top-dir={top}, dirs={dirs}, non-dirs={nondirs}")
+    logging.debug(f"==>>   all-dirs={dirs_all}, filtered=({len(dirs_all) - len(dirs)})")
+    logging.debug(f"==>>   all-non-dirs={nondirs_all}, filtered=({len(nondirs_all) - len(nondirs)})")
     yield top, dirs, nondirs
 
     # only topdown recursion

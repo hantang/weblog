@@ -24,6 +24,8 @@ def get_datetime(datetime, date=True, time=True):
 def get_date_part(datetime):
     dt = datetime
     is_bc = False
+    if datetime is None:
+        datetime = pendulum.now()
     if isinstance(datetime, str):
         # only for year(/month/day), year(-month-day), and year, month, day are all digits
         if datetime.startswith("-"):
@@ -38,7 +40,7 @@ def get_date_part(datetime):
         try:
             dt = parse2date(datetime, strict=True)
         except:
-            logging.warning(f"datetime=`{datetime}` may not valid")
+            logging.warning(f"!!! datetime=`{datetime}` may not valid")
             dt = parse2date(datetime, strict=False)
     return ("{}{:04d}".format("-" if is_bc else "", int(dt.year)),
             "{:02d}".format(int(dt.month)),

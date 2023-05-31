@@ -5,7 +5,6 @@ import logging
 import os
 import re
 from pathlib import PurePath
-from typing import Tuple, Union
 
 from .utils.dateutil import get_date_part, get_datetime
 from .utils.fileutil import divide_textfile
@@ -123,7 +122,7 @@ class BlogBody:
 
     def render(self, toc):
         if toc:
-            logging.warning("post with toc")
+            logging.debug("==>> post with toc")
             raw_html_text, raw_html_toc = self.parser_markdown(self.text, toc)
         else:
             raw_html_text = self.parser_markdown(self.text)
@@ -134,7 +133,7 @@ class BlogBody:
         img = self.parser_markdown.get_images_map()
         self._images = set([i[0] for i in img])
         if len(img) > 0:
-            logging.warning("parser_markdown = {}".format(img))
+            logging.debug("==>> parser_markdown = {}".format(img))
 
     @property
     def html(self):
@@ -146,7 +145,7 @@ class BlogBody:
 
     @property
     def images(self):
-        logging.debug("images = {}".format(", ".join(self._images)))
+        logging.debug("==>> images = {}".format(", ".join(self._images)))
         return self._images
 
 
@@ -181,7 +180,7 @@ class BlogContent:
         self.filepath = concat_path(dirpath, filename)
         self.filename = filename
         self.filetype = obtain_file_suffix(filename)  # dict
-        logging.info(f"==> content: filepath={self.filepath}, subdirs={subdirs}, topic={self.topic}, slug={self.slug}")
+        logging.debug(f"==> content: filepath={self.filepath}, subdirs={subdirs}, topic={self.topic}, slug={self.slug}")
 
         self.meta, self.body = self._parse_file()
 
@@ -203,7 +202,7 @@ class BlogContent:
 
     def get_layout(self, default="page"):
         # todo
-        logging.debug(f"{self.filepath}, layout={self.meta.layout}, default={default}")
+        logging.debug(f"==>> {self.filepath}, layout={self.meta.layout}, default={default}")
         return default
 
     def get_info(self):
@@ -217,7 +216,7 @@ class BlogContent:
             "summary": self.meta.summary,
             "url_base": self.url_base,
         }
-        logging.debug("-->>> content info = {}".format(info))
+        logging.debug("==>>  content info = {}".format(info))
         return info
 
     def render(self, layout=None, toc=False):
@@ -244,7 +243,7 @@ class BlogContent:
         if os.path.exists(self.filepath):
             (meta_raw, meta_type, meta_data), body_raw = divide_textfile(self.filepath, self.charset)
         else:
-            logging.warning(f"content path({self.filepath}) not exits")
+            logging.warning(f"!!! content path({self.filepath}) not exits")
             meta_data = {}
             body_raw = ""
         meta = BlogMeta(meta_data)

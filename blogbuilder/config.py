@@ -20,7 +20,7 @@ class BlogConfig:
 
     def __init__(self, config_file, encoding="utf-8") -> None:
         # todo 合法的key
-        logging.info(f"read from = {config_file}")
+        logging.debug(f"==>> read from = {config_file}")
         self._config = loadf_config(config_file, encoding)
         self._check()
         self._menu = self._config["menu"]
