@@ -87,7 +87,9 @@ class BlogMeta:
         self._author = self.meta_data.get("author")
         self._summary = self.meta_data.get("summary")
         self._paginate = self.meta_data.get("paginate")
+        # self._math = self.meta_data.get("page", {}).get("math")
         self._datetime_parts = get_date_part(self._datetime)
+
 
     def update_meta(self, new_meta, overwrite=False):
         """本地>上级目录>根目录配置"""
@@ -102,7 +104,9 @@ class BlogMeta:
                 else:
                     self.meta_data[k] = v.copy()
             else:
-                if overwrite or k not in self.meta_data:
+                if overwrite or k not in self.meta_data \
+                    or not self.meta_data[k] \
+                    or len(str(self.meta_data[k])) == 0:
                     self.meta_data[k] = v
         self._get()
 

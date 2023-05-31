@@ -9,6 +9,7 @@ from typing import List
 
 from .config import BlogConfig
 from .content import BlogContent
+from .utils import extrautil
 from .utils.dateutil import get_date_part
 from .utils.tplutil import TemplateUtil
 
@@ -164,7 +165,7 @@ class BlogTheme:
 
     def _render(self, page_data: BlogContent, layout=ThemeSkeleton.layout_page, **kwargs):
         page_layout = page_data.get_layout(layout)
-        toc = True if page_layout == ThemeSkeleton.layout_post else False
+        toc = True if page_layout == ThemeSkeleton.layout_post else False # todo
         page_data.render(page_layout, toc)
         if page_layout == ThemeSkeleton.layout_index:
             self._render_index(page_data)
@@ -189,7 +190,7 @@ class BlogTheme:
 
     def _render_post(self, post_content: BlogContent):
         """
-        文章内容 TODO prev/next
+        文章内容
         """
         layout = ThemeSkeleton.layout_post
         layout_name = ".".join([layout, ThemeSkeleton.suffix])
@@ -205,6 +206,9 @@ class BlogTheme:
         params["post_url_prev"] = None if post_content.url_prev is None else "/{}/".format(post_content.url_prev)
         params["post_url_next"] = None if post_content.url_next is None else "/{}/".format(post_content.url_next)
         params["post_url_topic"] = "/{}/".format(post_content.url_topic)
+        params["post_math"] = None
+        #  todo
+        params["post_math"] = extrautil.KATEX
 
         out = self.template(layout_name, params)
         save_dir = post_content.url_base
@@ -217,6 +221,7 @@ class BlogTheme:
         layout = ThemeSkeleton.layout_page
         layout_name = ".".join([layout, ThemeSkeleton.suffix])
         params = self.params.copy()
+        params["post_title"] = page_index.topic
 
         params["post_content"] = ""
         if page_index:
@@ -229,6 +234,7 @@ class BlogTheme:
             pages_list.append({
                 "title": page["title"],
                 "date_year_month": page["date_year_month"],
+                "date": page["date"],
                 "url": "/{}/".format(page["url_base"].strip("/")),
                 "summary": page["summary"],
                 "author": page["author"],
