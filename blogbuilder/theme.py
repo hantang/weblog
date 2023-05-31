@@ -227,15 +227,18 @@ class BlogTheme:
             pages_list.append({
                 "title": page["title"],
                 "date_year_month": page["date_year_month"],
-                "url": page["url_base"].strip("/").split("/")[-1],
+                "url": "/{}/".format(page["url_base"].strip("/")),
                 "summary": page["summary"],
                 "author": page["author"],
             })
 
-        pages_by_ym = defaultdict[list]
+        pages_by_ym = {}
         for entry in pages_list:
             ym = entry["date_year_month"]
-            pages_by_ym[ym].append(entry)
+            if ym not in pages_by_ym:
+                pages_by_ym[ym] = [entry]
+            else:
+                pages_by_ym[ym].append(entry)
         ym_keys = sorted(pages_by_ym.keys(), reverse=True)
         pages_by_ym2 = [{"year_month": ym, "posts": pages_by_ym[ym]} for ym in ym_keys]
 
