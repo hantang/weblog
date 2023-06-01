@@ -16,7 +16,7 @@
         {% if info.social %}
         <section class="footer-social">
             {% for item in info.social %}
-            <span class="footer-social-links"><a href={{item.link}}>{{item.name|upper}}</a></span>
+            <span class="footer-social-links"><a href="{{item.link}}">{{item.name|upper}}</a></span>
             {% endfor %}
         </section>
         {% endif %}

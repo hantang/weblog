@@ -49,10 +49,13 @@ class BlogTheme:
         self.meta_params = config.meta_params
         self.content_list = content_list
         self.charset = charset
+        self.url_suffix = config.url_suffix
 
         self.template = TemplateUtil(PurePath(theme_dir, ThemeSkeleton.layouts))
         logging.debug(f"==>> params = {self.params}")
         logging.debug(f"==>> meta_params = {self.meta_params}")
+        if self.url_suffix:
+            logging.info(f"==>> url_suffix = {self.url_suffix}")
 
     def generate(self):
         topic_dict = self._group_contents()
@@ -100,7 +103,10 @@ class BlogTheme:
             favicon = favicons[1]
 
         if favicon.exists():
-            save_path = Path(self.deploy_dir, ThemeSkeleton.static)
+            save_path = Path(self.deploy_dir)
+            if self.url_suffix:
+                save_path = Path(save_path, self.url_suffix.strip("/"))
+            save_path = Path(save_path, ThemeSkeleton.static)
             if not save_path.exists():
                 save_path.mkdir()
             logging.debug(f"==>> copy {favicon} files to target={save_path}")
@@ -118,7 +124,10 @@ class BlogTheme:
                     assets_files = sub_assets_path.glob(f"*.{suffix}")
 
                 if len(list(assets_files)) > 0:
-                    save_path = Path(self.deploy_dir, ThemeSkeleton.assets, suffix)
+                    save_path = Path(self.deploy_dir)
+                    if self.url_suffix:
+                        save_path = Path(save_path, self.url_suffix.strip("/"))
+                    save_path = Path(save_path, ThemeSkeleton.assets, suffix)
                     logging.debug(f"==>> copy {suffix} files to target={save_path}")
                     shutil.copytree(sub_assets_path, save_path)
 
@@ -203,9 +212,9 @@ class BlogTheme:
         info = post_content.get_info()
         params["post_datetime"] = info["datetime"]
         params["post_author"] = info["author"]
-        params["post_url_prev"] = None if post_content.url_prev is None else "/{}/".format(post_content.url_prev)
-        params["post_url_next"] = None if post_content.url_next is None else "/{}/".format(post_content.url_next)
-        params["post_url_topic"] = "/{}/".format(post_content.url_topic)
+        params["post_url_prev"] = None if post_content.url_prev is None else "{}/{}/".format(self.url_suffix, post_content.url_prev)
+        params["post_url_next"] = None if post_content.url_next is None else "{}/{}/".format(self.url_suffix, post_content.url_next)
+        params["post_url_topic"] = "{}/{}/".format(self.url_suffix, post_content.url_topic)
         params["post_math"] = None
         #  todo
         params["post_math"] = extrautil.KATEX
@@ -235,7 +244,7 @@ class BlogTheme:
                 "title": page["title"],
                 "date_year_month": page["date_year_month"],
                 "date": page["date"],
-                "url": "/{}/".format(page["url_base"].strip("/")),
+                "url": "{}/{}/".format(self.url_suffix, page["url_base"].strip("/")),
                 "summary": page["summary"],
                 "author": page["author"],
             })
@@ -276,13 +285,13 @@ class BlogTheme:
                 logging.info(f"layout_name={layout_name}, save_dir={save_dir}, {page_index.url_name}")
                 params["post_list_next"] = None
                 if start + paginate < pages_cnt:
-                    params["post_list_next"] = "/{}/{}/{}/".format(save_dir, ThemeSkeleton.remained_page, paginate_index+1)
+                    params["post_list_next"] = "{}/{}/{}/{}/".format(self.url_suffix, save_dir, ThemeSkeleton.remained_page, paginate_index+1)
 
                 params["post_list_prev"] = None
                 if start == paginate:
-                    params["post_list_prev"] = f"/{save_dir}/"
+                    params["post_list_prev"] = f"{self.url_suffix}/{save_dir}/"
                 elif start > paginate:
-                    params["post_list_prev"] = "/{}/{}/{}/".format(save_dir, ThemeSkeleton.remained_page, paginate_index-1)
+                    params["post_list_prev"] = "{}/{}/{}/{}/".format(self.url_suffix, save_dir, ThemeSkeleton.remained_page, paginate_index-1)
 
                 out = self.template(layout_name, params)
                 if start > 0:
@@ -307,8 +316,9 @@ class BlogTheme:
     def _save(self, output, save_dir, save_name, format_text=True):
         if not save_name.endswith(".html"):
             save_name += ".html"
-
         save_path = Path(self.deploy_dir)
+        if self.url_suffix:
+            save_path = Path(save_path, self.url_suffix.strip("/"))
         if save_dir is not None and len(save_dir) > 0:
             save_path = Path(save_path, save_dir)
         if not save_path.exists():
@@ -332,7 +342,9 @@ class BlogTheme:
 
     def _save_image(self, page: BlogContent):
         save_dir = page.url_base
-        save_path = PurePath(self.deploy_dir)
+        save_path = Path(self.deploy_dir)
+        if self.url_suffix:
+            save_path = Path(save_path, self.url_suffix.strip("/"))
         if save_dir:
             save_path = PurePath(save_path, save_dir)
         images = page.get_images()

@@ -5,7 +5,7 @@
 {%- endblock title %}
 
 {% block head_link %}
-<link rel="stylesheet" href="/assets/css/solarized-light.css"/>
+<link rel="stylesheet" href="{{url_suffix}}/assets/css/solarized-light.css"/>
 {% if post_math | length %}
 {{post_math}}
 {% endif %}
