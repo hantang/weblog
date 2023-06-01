@@ -19,10 +19,10 @@ mainly techs:
 Here is: [https://hantang.github.io/weblog/](https://hantang.github.io/weblog/)
 
 Snapshots:
-* ![](images/home.jpg)
-* ![](images/dark.jpg)
-* ![](images/menu.jpg)
-* ![](images/post.jpg)
+* ![HomePage](images/home.jpg "Home Page")
+* ![DarkMode](images/dark.jpg "Dark Mode")
+* ![Menus](images/menu.jpg "Menus")
+* ![Post](images/post.jpg "Post Example")
 
 ## Usage
 
