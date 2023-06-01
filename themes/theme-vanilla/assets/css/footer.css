@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "Open Sans";
+    src: url("../fonts/OpenSans-Regular.ttf")
+}
+
+.footer-parts {
+    width: 100%;
+    margin: 2rem auto;
+    text-align: center;
+    font-family: "Open Sans", helvetica, monospace, sans-serif, serif;
+    font-size: small;
+}
+
+.footer-parts span:last-child {
+    white-space: nowrap;
+}
+
+.footer-hr {
+    margin: 1rem auto;
+}

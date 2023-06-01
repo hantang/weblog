@@ -1,0 +1,17 @@
+<header id="base-header">
+    <hgroup class="header-h">
+    <h1>{{ site.initials | upper }}</h1>
+    <p>{{ site.description | lower }}</p>
+    </hgroup>
+
+    <section class="header-menu">
+        <nav id="menu">
+            <ul>
+                {% for item in menu %}
+                <li><a href="{{ item['url'] }}">{{ item['name'] | upper }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </section>
+    <hr class="header-hr">
+</header>

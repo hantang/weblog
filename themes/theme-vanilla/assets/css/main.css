@@ -1,0 +1,272 @@
+:root {
+    color-scheme: dark light;
+    --main-width: 720px;
+    --radius: 5px;
+
+    --background-color: rgb(255, 251, 240);
+    --color: rgb(22, 24, 35);
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --main-headline-color: rgb(49, 37, 32);
+    --blockquote-border-color: rgb(102, 104, 115);
+    --blockquote-para-color: rgb(255, 251, 235);
+    --icon-filter_hover: invert(60%);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: rgb(22, 24, 35);
+        --color: rgb(255, 251, 240);
+        --shadow-color: rgba(255, 255, 255, 0.05);
+        --main-headline-color: rgb(240, 240, 244);
+        --blockquote-border-color: rgb(255, 251, 235);
+        --blockquote-para-color: rrgb(102, 104, 115);
+        --icon-filter: invert(100%);
+        --icon-filter_hover: invert(40%);
+        --image-filter: grayscale(50%);
+        --hue-rotate: hue-rotate(180deg);
+    }
+
+    img[src*=".svg"] {
+        filter: var(--icon-filter);
+    }
+
+    img:not([src*=".svg"]) {
+        filter: var(--image-filter);
+    }
+
+    .highlight {
+        filter: var(--icon-filter) var(--hue-rotate);
+    }
+}
+
+@font-face {
+    font-family: "Crimson Text";
+    src: url("../fonts/CrimsonText-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Fira Mono";
+    src: url("../fonts/FiraMono-Regular.ttf");
+}
+
+html,
+body {
+    background: var(--background-color);
+}
+
+body {
+    color: var(--color);
+    font-family: "Crimson Text", helvetica, monospace, sans-serif, serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+
+    word-break: normal;
+    overflow-wrap: normal; /* word-wrap */
+    line-break: auto;
+    word-spacing: normal;
+
+    margin: auto;
+    width: 80%;
+    max-width: var(--main-width);
+    min-width: calc(var(--main-width) / 2);
+    min-height: 100%;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    color: var(--main-headline-color);
+}
+
+blockquote {
+    font-style: italic;
+    border-left: thick solid var(--blockquote-border-color);
+    margin: auto 0.75rem;
+}
+
+blockquote p {
+    padding: 0.5rem 1rem;
+    background: var(--blockquote-para-color);
+    border-radius: 0 5px 5px 0;
+}
+
+blockquote p::before {
+    content: "\201C";
+    font-size: larger;
+}
+
+blockquote p::after {
+    content: "\201D";
+    font-size: larger;
+}
+
+table,
+img {
+    width: 95%;
+    max-width: 95%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+}
+
+img {
+    vertical-align: middle;
+    height: auto;
+}
+
+img[src*=".svg"]:hover {
+    filter: var(--icon-filter_hover);
+}
+
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+
+td,
+th {
+    padding: 0.5em;
+    border: 1px solid var(--color);
+}
+
+thead th {
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    font: bold;
+}
+
+figcaption {
+    font: smaller helvetica sans-serif;
+    text-align: center;
+}
+
+code {
+    font-family: "Fira Mono", monospace;
+    font-size: smaller;
+    padding: 0.2em 0.5em;
+    border-radius: var(--radius);
+}
+
+.post-main,
+.post-entry-list {
+    margin: 1rem auto;
+    padding: 1rem 2rem;
+    box-shadow: 0 0 0.7rem 0.5rem var(--shadow-color);
+    border-radius: var(--radius);
+}
+
+.post-title {
+    padding: 0 3rem;
+    margin: auto;
+}
+
+.post-title>h1 {
+    font-size: xx-large;
+}
+
+.post-toc {
+    max-width: 90%;
+    display: block;
+    margin: 1.5rem 2rem;
+    padding: 1rem 2rem;
+    border-top: thick solid;
+    border-bottom: solid;
+    font-size: smaller;
+}
+
+.post-meta {
+    text-align: right;
+    padding-right: 5rem;
+}
+
+.post-meta .post-meta-time {
+    font-size: smaller;
+    padding-right: 1rem;
+}
+
+.post-content {
+    margin: 3rem 1rem;
+}
+
+.post-content>h2,
+.post-content>h3,
+.post-content>h4 {
+    font-size: x-large;
+}
+
+.post-content>p {
+    text-indent: 2rem;
+    font-size: large;
+    padding-left: 1rem;
+}
+
+.post-content>blockquote p {
+    text-indent: 0;
+    font-size: smaller;
+}
+
+.post-content>hr {
+    border: none;
+    border-top: 0.3rem double;
+    color: var(--color);
+    overflow: visible;
+    text-align: center;
+    height: 0.5rem;
+    width: 95%;
+    margin-top: 2.5rem;
+}
+
+.post-content>hr:after {
+    background: var(--background-color);
+    content: "§";
+    padding: 0 0.5rem;
+    position: relative;
+    top: -1rem;
+}
+
+.post-content .highlight {
+    margin: 1.25em;
+}
+
+.post-content pre code {
+    display: block;
+    border: thin solid;
+    padding: 1.25em 1.5em;
+    overflow-x: auto;
+}
+
+.post-entry-list * {
+    margin: 0 auto;
+}
+
+.post-entry-list ul {
+    margin-bottom: 1.5rem;
+}
+
+.post-entry-list li>p {
+    padding-left: 2rem;
+}
+
+.post-footer {
+    margin: 1rem 2rem;
+}
+
+.post-footer .pagination {
+    display: flex;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    margin: 1.5rem auto;
+}
+
+/* .post-footer .pagination .mid {
+    margin: auto;
+} */

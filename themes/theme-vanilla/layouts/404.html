@@ -1,0 +1,32 @@
+{% extends '_default/base.html' %}
+
+{% block head_link %}
+<link rel="stylesheet" href="/assets/css/404.css" />
+<link rel="stylesheet" href="/assets/css/header.css" />
+<link rel="stylesheet" href="/assets/css/footer.css" />
+{% endblock %}
+
+{% block title -%}
+{{ "404" }} | {{ title }}
+{%- endblock title %}
+
+{% block body_header %}
+{% include "_partials/header.html" %}
+{% endblock %}
+
+{% block body_main %}
+<article class="post-main">
+    <header>
+        <h1 class="error-header">Oops!</h1>
+    </header>
+    <section class="error-container">
+        <span><span>4</span></span>
+        <span>0</span>
+        <span><span>4</span></span>
+    </section>
+</article>
+{% endblock %}
+
+{% block body_footer %}
+{% include "_partials/footer.html" %}
+{% endblock %}
