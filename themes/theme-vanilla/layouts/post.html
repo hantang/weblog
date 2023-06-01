@@ -1,0 +1,68 @@
+{% extends '_default/base.html' %}
+
+{% block title -%}
+{{ post_title }} | {{ title }}
+{%- endblock title %}
+
+{% block head_link %}
+<link rel="stylesheet" href="/assets/css/solarized-light.css"/>
+{% if post_math | length %}
+{{post_math}}
+{% endif %}
+{% endblock %}
+
+{% block body_main %}
+<article class="post-main">
+    <header>
+        <a href="{{post_url_topic}}">« Back</a>
+        <div class="post-title">
+        {% if post_descriptions %}
+        <hgroup>
+            <h1> {{ post_title }}</h1>
+            <p class="post-descriptions">post_descriptions</p>
+        </hgroup>
+        {% else %}
+        <h1> {{ post_title }}</h1>
+        {% endif %}
+        </div>
+
+        <p class="post-meta">
+            {%if post_datetime %}
+            <span class="post-meta-time" title="{{post_datetime}}">{{post_datetime}}</span>
+            {% endif %}
+            {% if post_author %}
+            <span class="post-meta-author" title="{{post_author}}">{{post_author}}</span>
+            {% endif %}
+        </p>
+    </header>
+
+    {% if post_tags %}
+    <section class="post-tags"></section>
+    {% endif %}
+
+    {% if post_cover %}
+    <section class="post-cover"></section>
+    {% endif %}
+
+    {% if "li" in post_toc %}
+    <section class="post-toc">
+        {{ post_toc }}
+    </section>
+    {% endif %}
+
+    <section class="post-content">
+        {{ post_content }}
+    </section>
+
+    <footer class="post-footer">
+        <nav class="pagination">
+            {% if post_url_prev is not none %}
+            <a class="prev" href="{{post_url_prev}}">«&nbsp;&nbsp;Prev</a>
+            {% endif %}
+            {% if post_url_next is not none %}
+            <a class="next" href="{{post_url_next}}">Next&nbsp;&nbsp;»</a>
+            {% endif %}
+        </nav>
+    </footer>
+</article>
+{% endblock %}

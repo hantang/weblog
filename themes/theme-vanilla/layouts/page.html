@@ -1,0 +1,63 @@
+{% extends '_default/base.html' %}
+
+{% block title -%}
+{{ post_title | upper }} - {{ title }}
+{%- endblock title %}
+
+{% block head_link %}
+<link rel="stylesheet" href="/assets/css/header.css" />
+{% endblock %}
+
+{% block body_header %}
+{% include "_partials/header.html" %}
+{% endblock %}
+
+{% block body_main %}
+<article>
+    {% if post_content %}
+    <article class="post-main">
+        <section class="post-content">
+            {{ post_content }}
+        </section>
+    </article>
+    {% endif %}
+
+    {% if post_list_grouped %}
+    <article class="post-entry-list">
+        <section class="post-content">
+            <ul>
+                {% for p_grouped in post_list_grouped %}
+                <li><h2>{{p_grouped['year_month']}}</h2></li>
+                <ul>
+                    {% for entry in p_grouped['posts'] %}
+                    <li>
+                        <h3><a class="post-entry-link" aria-label="{{entry.title}}" href="{{ entry.url }}">{{entry.title}}</a></h3>
+                        <p><small><span title="{{entry.date}}">{{entry.date}}</span></small>
+                            {% if entry.author %}{{entry.author}}{% endif %}</p>
+                        {% if entry.summary | trim | length %}
+                        <blockquote><p>{{entry.summary}}</p></blockquote>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </ul>
+        </section>
+
+        {% if post_list_total > 1 %}
+        <footer class="post-footer">
+            <nav class="pagination">
+                {% if post_list_prev is not none %}
+                <a class="prev" href="{{post_list_prev}}">«&nbsp;&nbsp;Prev</a>
+                {% endif %}
+                <div class="mid">{{ post_list_index}}/{{ post_list_total}}</div>
+                {% if post_list_next is not none %}
+                <a class="next" href="{{post_list_next}}">Next&nbsp;&nbsp;»</a>
+                {% endif %}
+            </nav>
+        </footer>
+        {% endif %}
+    </article>
+    {% endif %}
+</article>
+{% endblock %}

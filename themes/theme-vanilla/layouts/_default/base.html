@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+
+    <title>{% block title %}{{title}}{% endblock %}</title>
+
+    {% block head_feed %}
+    <link rel="alternate" type="application/rss+xml" title=" &raquo; RSS 2.0" href="feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title=" &raquo; ATOM 1.0" href="feed/atom/index.xml" />
+    {% endblock %}
+    {%block head_info %}
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% endblock %}
+
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    {%block head_link %}
+    <style></style>
+    <script></script>
+    {% endblock %}
+    </head>
+
+    <body>
+        <div id="base-container">
+            {% block body_header %}{% endblock %}
+
+            <main id="base-main" aria-label="Content">
+            {% block body_main %}{% endblock %}
+            </main>
+
+            {% block body_footer %} {% endblock %}
+        </div>
+        {% block body_extra %} {% endblock %}
+    </body>
+
+</html>

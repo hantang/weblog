@@ -1,0 +1,42 @@
+<footer id="base-footer">
+    <hr class="footer-hr">
+    <div class="footer-parts">
+        <section class="footer-copyright">
+            <span>
+                &copy; <a href="{{author.link}}">{{ author.name | upper }} </a><span id="copyright-year"></span>. ALL
+                RIGHTS RESERVED.
+            </span>
+        </section>
+        <section class="footer-tech">
+            {% if info.power %}
+            <span> {{ ("Powered By " ~ info.power) | upper }} </span>
+            {% endif %}
+        </section>
+
+        {% if info.social %}
+        <section class="footer-social">
+            {% for item in info.social %}
+            <span class="footer-social-links"><a href={{item.link}}>{{item.name|upper}}</a></span>
+            {% endfor %}
+        </section>
+        {% endif %}
+        {% if info.beian %}
+        <section class="footer-beian">
+            {% endif %}
+        </section>
+    </div>
+
+    <script>
+        function getYear(sinceDatetime) {
+            let thisYear = new Date().getFullYear();
+            let sinceYear = null;
+            let output = thisYear;
+            if (typeof (sinceDatetime) !== "undefined" && !isNaN(Date.parse(sinceDatetime)))
+                sinceYear = new Date(Date.parse(sinceDatetime)).getFullYear()
+            if (sinceYear !== null && sinceYear !== thisYear)
+                output = sinceYear + " - " + thisYear
+            document.getElementById("copyright-year").innerHTML = output
+        };
+        getYear({{ '"'~info.since_year~'"' }});
+    </script>
+</footer>

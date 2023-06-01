@@ -1,0 +1,22 @@
+{% extends '_default/base.html' %}
+
+{% block head_link %}
+<link rel="stylesheet" href="/assets/css/header.css" />
+<link rel="stylesheet" href="/assets/css/footer.css" />
+{% endblock %}
+
+{% block body_header %}
+{% include "_partials/header.html" %}
+{% endblock %}
+
+{% block body_main %}
+<article class="post-main">
+    <section class="post-content">
+    {{ post_content }}
+    </section>
+</article>
+{% endblock %}
+
+{% block body_footer %}
+{% include "_partials/footer.html" %}
+{% endblock %}
