@@ -1,0 +1,62 @@
+url = ""
+title = "someone's weblog"
+theme = "theme-vanilla"
+
+[[menu]]
+    name = "Home"
+    url = "/"
+    weight = 10
+[[menu]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 20
+[[menu]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 21
+[[menu]]
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[site]
+    initials = "༼ つ ◕‿◕ ༽つ My Weblog"
+    description = "... write blogs and have fun ..."
+    # favicon = "favicon.ico"
+    keywords = ["blog", "tech"]
+    # languageCode = "en-us"
+    # defaultContentLanguage = "en"
+    # hasCJKLanguage = true
+    paginate = 5
+    sitemap = "sitemap.xml"
+
+[author]
+    name = "someone"
+    email = ""
+
+[taxonomies]
+    cate = false
+    tag = false
+    series = false
+
+[page]
+    toc = true
+    math = "katex"
+    markup = "md"
+
+[info]
+    power = "PyBlogBuilder"
+    since = "2023-01-01"
+    beian = ""
+    [[info.social]]
+        name = "Github"
+        link = ""
+        icon = ""
+    [[info.social]]
+        name = "Twitter"
+        link = ""
+        icon = ""
+    [[info.social]]
+        name = "Discord"
+        link = ""
+        icon = ""
