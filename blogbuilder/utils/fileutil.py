@@ -25,7 +25,7 @@ def get_img_pattern(img_type: str):
     pchar1 = r'/\\'
     pchar2 = r'<>'
     pchar4 = r'"()\^' + pchar2 + pchar1
-    image_suffix = '(jpeg|jpg|png|gif|webp|svg|tiff|bmp|jp2|heic)'
+    image_suffix = '(jpeg|jpg|png|gif|webp|svg|tiff|bmp|jp2|heic|svg)'
     pattern_image = rf'(\w:)?([{pchar1}]?)((?:[^{pchar4}]+[{pchar1}])*?)([^{pchar4}]*\.{image_suffix})'  # 匹配的图片格式
     pattern2 = rf'((<img\s+[^{pchar2}]*?src=")({pattern_image})("(?:\s+[^{pchar2}]+)?>))'  # html<img>标签
     if img_type.lower() == 'markdown':
