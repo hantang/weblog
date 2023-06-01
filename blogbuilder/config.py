@@ -46,7 +46,7 @@ class BlogConfig:
         for entry in self._menu:
             menu.append({
                 "topic": entry["url"].strip().strip("/"),
-                "url": "{}/{}/".format(self.url_suffix, entry["url"].strip().strip("/")),
+                "url": "{}/{}/".format(self.url_suffix, entry["url"].strip().strip("/")).replace("//", "/"),
                 "name": entry["name"].strip(),
                 "weight": int(entry["weight"]),
             })
