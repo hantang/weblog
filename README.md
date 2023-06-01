@@ -5,12 +5,24 @@ A python static blog generator.
 
 `Weblog` is a simple static blog generator built with python.
 
+Inspired by [Hugo](https://github.com/gohugoio/hugo/), [Maverick](https://github.com/AlanDecode/Maverick) and [pelican](https://github.com/getpelican/pelican) etc.
+
 mainly techs:
 * markdown parser: [mistune](https://github.com/lepture/mistune)
 * math support: [ketax](https://github.com/KaTeX/KaTeX)
 * date and time parsing: [pendulum](https://pendulum.eustace.io/)
 * toml/yaml
 * ...
+
+## Demo
+
+Here is: [https://hantang.github.io/weblog/](https://hantang.github.io/weblog/)
+
+Snapshots:
+* ![](images/home.jpg)
+* ![](images/dark.jpg)
+* ![](images/menu.jpg)
+* ![](images/post.jpg)
 
 ## Usage
 
