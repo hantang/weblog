@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import PurePath
 
-from .utils.dateutil import get_date_part, get_datetime
+from .utils.dateutil import get_date_part, get_datetime, get_filetime
 from .utils.fileutil import divide_textfile
 from .utils.mdutil import MarkdownParser
 from .utils.pathutil import concat_path, is_index_filename, obtain_file_stem, obtain_file_suffix
@@ -85,8 +85,8 @@ class BlogMeta:
         self._datetime = str(self.meta_data.get("date", "1970-01-01"))
         self._layout = self.meta_data.get("layout")
         self._author = self.meta_data.get("author")
-        self._summary = self.meta_data.get("summary")
-        self._paginate = self.meta_data.get("paginate")
+        self._summary = self.meta_data.get("summary", "")
+        self._paginate = self.meta_data.get("paginate", -1)
         # self._math = self.meta_data.get("page", {}).get("math")
         self._datetime_parts = get_date_part(self._datetime)
 
@@ -251,6 +251,14 @@ class BlogContent:
             logging.warning(f"!!! content path({self.filepath}) not exits")
             meta_data = {}
             body_raw = ""
+        if meta_data.get("title") in [None, ""]:
+            logging.warning(f"empty title in {self.filepath}")
+            name = obtain_file_stem(self.filename)
+            meta_data["title"] = name.replace("-", " ").title()
+        if meta_data.get("date") in [None, ""]:
+            logging.warning(f"empty date in {self.filepath}")
+            meta_data["date"] = get_filetime(self.filepath)
+
         meta = BlogMeta(meta_data)
         body = BlogBody(body_raw)
         return meta, body
