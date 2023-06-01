@@ -154,7 +154,7 @@ class BlogTheme:
     def _sort_contents(self, contents: List[BlogContent]):
         def sort_key(content):
             x = content.get_info()
-            return x["datetime"], x["author"], x["url_base"]
+            return get_date_part(x["datetime"]), x["author"], x["url_base"]
 
         new_contents = sorted(contents, key=sort_key)
         for i, c in enumerate(new_contents):

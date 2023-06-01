@@ -53,7 +53,7 @@ class MyRenderer(HTMLRenderer):
                 return out
             except:
                 logging.warning(f"!!! HTMLRenderer, error HtmlFormatter(), info={info}")
-        return super().block_code(code, info)
+        return '<div class="highlight language-text">'+super().block_code(code, info)+'</div>'
 
     def block_html(self, html: str) -> str:
         """block_text, block_html, text, inline_html"""
