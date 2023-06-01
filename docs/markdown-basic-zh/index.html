@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+<title>Markdown基础（中文翻译） | Weblog Archipelago</title>
+<link rel="alternate" type="application/rss+xml" title=" &raquo; RSS 2.0" href="feed/index.xml" />
+<link rel="alternate" type="application/atom+xml" title=" &raquo; ATOM 1.0" href="feed/atom/index.xml" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" href="/assets/css/main.css" />
+<link rel="stylesheet" href="/assets/css/solarized-light.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+<div id="base-container">
+<main id="base-main" aria-label="Content">
+<article class="post-main">
+<header>
+<a href="/docs/">« Back</a>
+<div class="post-title">
+<h1> Markdown基础（中文翻译）</h1>
+</div>
+<p class="post-meta">
+<span class="post-meta-time" title="2023-05-28 00:00:00">2023-05-28 00:00:00</span>
+<span class="post-meta-author" title="hantang">hantang</span>
+</p>
+</header>
+<section class="post-toc">
+<details class="toc" open>
+<summary>TABLE OF CONTENTS</summary>
+<ul>
+<li><a href="#了解Markdown格式化语法的要点">了解Markdown格式化语法的要点</a></li>
+<li><a href="#段落，标题，块引用">段落，标题，块引用</a>
+<ul>
+<li><a href="#短语强调">短语强调</a></li>
+</ul>
+</li>
+<li><a href="#列表">列表</a></li>
+<li><a href="#链接">链接</a>
+<ul>
+<li><a href="#图片">图片</a></li>
+<li><a href="#代码">代码</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</section>
+<section class="post-content">
+<blockquote>
+<p>翻译自<a href="https://daringfireball.net/projects/markdown/">https://daringfireball.net/projects/markdown/</a></p>
+</blockquote>
+<h2 id="了解Markdown格式化语法的要点">了解Markdown格式化语法的要点</h2>
+<p>本文简要说明了如何使用Markdown。
+语法页面对所有特征提供完整、详细的文档，
+但实际上Markdown通过找几个例子就很容易上手。
+本文中的例子都以一种“之前、之后”的方式写作，
+分别表示以Markdown语法的写作内容和对应生成的HTML输出内容。</p>
+<p>直接试试写Markdown也很有用。
+Dingus提供了一个网页程序，
+你可以在上面写你自己的Markdown格式的文本，并转换成XHTML格式。</p>
+<p><strong>注意：</strong> 本文档就是以markdown写成的；
+你可以在URL上加上<code>.text</code>看得开源代码。</p>
+<h2 id="段落，标题，块引用">段落，标题，块引用</h2>
+<p>一个段落就是简单的一行或多行连续都文本，被一个或多个空白行分隔。
+（空白行指的是任何看起来是空白的行——比如什么都没有
+但有一些空格或制表符。）常规段落不用空格或制表符缩进。</p>
+<p>Markdown提供了两种风格的标题：Setext和atx。
+Setext风格的标题中，<code>&lt;h1&gt;</code>和<code>&lt;h2&gt;</code>分别用等号（<code>=</code>）和连字符（<code>-</code>）以下划线的方式标注。
+atx风格的标题，你需要在每行开头填放1到6个井字符（<code>#</code>）,井字符数量等同于产生的HTML标题层级。</p>
+<p>块引用是用邮件风格'<code>&gt;</code>'的尖括号。</p>
+<p>Markdown:</p>
+<div class="highlight language-markdown"><pre><code><span></span><span class="gh">一级标题</span>
+<span class="gh">=======</span>
+<span class="gu">二级标题</span>
+<span class="gu">-------</span>
+Now is the time for all good men to come to
+the aid of their country. 这仅仅是一个
+普通段落。
+The quick brown fox jumped over the lazy
+dog&#39;s back.
+<span class="gu">### 标题3</span>
+<span class="k">&gt; </span><span class="ge">这是一个块引用。</span>
+&gt;
+<span class="k">&gt; </span><span class="ge">这是块引用中的第二个段落。</span>
+&gt;
+<span class="k">&gt; </span><span class="ge">## 这是块引用的H2标题</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>一级标题<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>二级标题<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Now is the time for all good men to come to
+the aid of their country. 这仅仅是一个
+普通段落。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The quick brown fox jumped over the lazy
+dog&#39;s back.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>标题3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个块引用。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是块引用中的第二个段落。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>这是块引用的H2标题<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="短语强调">短语强调</h3>
+<p>Markdown使用星号和下划线实现强调效果。</p>
+<p>Markdown:</p>
+<div class="highlight language-markdown"><pre><code><span></span>这些词中有些是被*强调的*。
+这些词中有些_也被强调了_。
+用两个星号实现**加粗强调**。
+你也可以__用两个下划线__。
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这些词中有些是被<span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>（斜体）强调的<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>。
+这些词中有些<span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>也被强调了<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>用两个星号实现<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>加粗强调<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>。
+你也可以<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>用两个下划线<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="列表">列表</h2>
+<p>无需（项目符号）列表可以用星号，加号和连字符（<code>*</code>, <code>+</code>和<code>-</code>）
+作为列表标记符，这3个标记符是可以互相替换的；比如这个：</p>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">*</span><span class="w"> </span>Candy.
+<span class="k">*</span><span class="w"> </span>Gum.
+<span class="k">*</span><span class="w"> </span>Booze.
+</code></pre></div>
+<p>这个：</p>
+<div class="highlight language-markdown"><pre><code><span></span>+ Candy.
++ Gum.
++ Booze.
+</code></pre></div>
+<p>和这个：</p>
+<div class="highlight language-text"><pre><code>- Candy.
+- Gum.
+- Booze.
+</code></pre>
+</div><p>都会得到相同的输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Candy.<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Gum.<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Booze.<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>有序（数字排序的）列表使用常规的数字，周期性的排序，
+比如列表标记：</p>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">1.</span> Red
+<span class="k">2.</span> Green
+<span class="k">3.</span> Blue
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Read<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Green<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Blue<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>如果你在项目之间放入了空白行，你会在列表
+文本中得到<code>&lt;p&gt;</code>标记。你可以通过缩进4个空格
+或1个制表符创建多个段落的列表项目：</p>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">*</span><span class="w"> </span>一个列表项目。
+多个段落。
+<span class="k">*</span><span class="w"> </span>另一个列表中的项目。
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-markdown"><pre><code><span></span>&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;一个列表项目。&lt;/p&gt;
+&lt;p&gt;多个段落。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;另一个列表中的项目。&lt;p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></div>
+<h2 id="链接">链接</h2>
+<p>Markdown支持两个风格的创建链接方式：<em>行内</em>和<em>引用</em>。两种风格，
+你都需要对要变成链接的文本框住一个方括号。</p>
+<p>行内风格紧跟在链接文本后使用圆括号。比如：</p>
+<div class="highlight language-markdown"><pre><code><span></span>这是一个[示例链接])(http://example.com/)。
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://example.com/&quot;</span><span class="p">&gt;</span>示例链接<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。
+</code></pre></div>
+<p>可选的是，你可以在圆括号内包含一个标题属性：</p>
+<div class="highlight language-markdown"><pre><code><span></span>这是一个[示例链接])(http://example.com/ &quot;带一个标题说明&quot;)。
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://example.com/&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;带一个标题说明&quot;</span><span class="p">&gt;</span>示例链接<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。
+</code></pre></div>
+<p>引用风格的链接你可以对引用的链接命名，名字可以定义在文档他处：</p>
+<div class="highlight language-markdown"><pre><code><span></span>我从[Google][1]得到流量是[Yahoo][2]或者[MSN][3]的10倍以上。
+[<span class="nl">1</span>]: <span class="na">http://google.com/        &quot;Google&quot;</span>
+[<span class="nl">2</span>]: <span class="na">http://search.yahoo.com/  &quot;Yahoo Search&quot;</span>
+[<span class="nl">3</span>]: <span class="na">http://search.msn.com/    &quot;MSN Search&quot;</span>
+</code></pre></div>
+<p>输出</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我从<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://google.com/&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Google&quot;</span><span class="p">&gt;</span>Google<span class="p">&lt;</span><span class="nt">a</span><span class="p">&gt;</span>
+得到流量是<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://search.yahoo.com/&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Yahoo Search&quot;</span><span class="p">&gt;</span>
+Yahoo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>或者<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://search.msn.com/&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;MSN Search&quot;</span><span class="p">&gt;</span>
+MSN<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>的10倍以上。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>标题属性是可选的。链接的名字可以字母、数字和空格，但是大小写无关：</p>
+<div class="highlight language-markdown"><pre><code><span></span>我以一杯咖啡和一份[《纽约时报》][NY Times]开始我的早晨。
+I start my morning with a cup of coffee and
+[<span class="nl">ny times</span>]: <span class="na">http://www.nytimes.com/</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-text"><pre><code>我以一杯咖啡和一份&lt;a href=&quot;http://www.nytimes.com/&quot;&gt;
+《纽约时报》&lt;/a&gt;开始我的早晨。
+</code></pre>
+</div><h3 id="图片">图片</h3>
+<p>图片语法和链接语法非常相似。</p>
+<p>行内（标题可选）：</p>
+<div class="highlight language-text"><pre><code>![alt文本](/路径/目录/图片名.jpg &quot;标题&quot;)
+</code></pre>
+</div><p>引用风格：</p>
+<div class="highlight language-text"><pre><code>![alt文本][id]
+[id]: /路径/目录/图片名.jpg &quot;标题&quot;
+</code></pre>
+</div><p>场面两个例子都输出一样的结果：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/路径/目录/图片名.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;alt文本&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;标题&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+<h3 id="代码">代码</h3>
+<p>在一个普通的段落里，你可以对文本用反引号包住而得到一个代码块。
+与字符（<code>&amp;</code>）和尖括号（<code>&lt;</code>或<code>&gt;</code>）都会自动转成成HTML实体。
+这些都很容易用Markdown写HTML例子都代码：</p>
+<div class="highlight language-markdown"><pre><code><span></span>我强烈建议反对使用任何`&lt;blink&gt;`符号。
+我希望SmartyPants使用类似`&amp;mdash;`的命名实体而不是
+十进制编码的实体，比如`&amp;#8212;`。
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-text"><pre><code>&lt;p&gt;我强烈建议反对使用任何&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt;符号。&lt;/p&gt;
+&lt;p&gt;我希望SmartyPants使用类似&lt;code&gt;&amp;amp;mdash;&lt;/code&gt;
+的命名实体而不是十进制编码的实体，比如&lt;code&gt;&amp;amp;#8212;&lt;/code&gt;。
+</code></pre>
+</div><p>如果需要对一整个文本块都进行代码格式化，需要块中的每行都缩进4个空格或1个制表符。
+和行内代码一样，字符<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code> 都会自动转义。</p>
+<p>Mardkown:</p>
+<div class="highlight language-markdown"><pre><code><span></span>如果你想要你的页面能够通过XHTML 1.0严格验证，
+你需要在你的的引用块里放上段落标记：
+&lt;blockquote&gt;
+&lt;p&gt;比如说.&lt;/p&gt;
+&lt;/blockquote&gt;
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight language-html"><pre><code><span></span><span class="p">&lt;</span><span class="nt">p如果你想要你的页面能够通过XHTML</span> <span class="na">1</span><span class="err">.</span><span class="na">0严格验证</span><span class="err">，</span>
+<span class="na">你需要在你的的引用块里放上段落标记</span><span class="err">：&lt;/</span><span class="na">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span><span class="ni">&amp;lt;</span>blockquote<span class="ni">&amp;gt;</span>
+<span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;</span>比如说<span class="ni">&amp;lt;</span>/p<span class="ni">&amp;gt;</span>
+<span class="ni">&amp;lt;</span>/blockquote<span class="ni">&amp;gt;</span>
+<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</code></pre></div>
+</section>
+<footer class="post-footer">
+<nav class="pagination">
+<a class="prev" href="/docs/markdown-basic/">«&nbsp;&nbsp;Prev</a>
+<a class="next" href="/docs/markdown-cheat-sheet/">Next&nbsp;&nbsp;»</a>
+</nav>
+</footer>
+</article>
+</main>
+</div>
+</body>
+</html>

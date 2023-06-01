@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+<title>Markdown: Cheat Sheet | Weblog Archipelago</title>
+<link rel="alternate" type="application/rss+xml" title=" &raquo; RSS 2.0" href="feed/index.xml" />
+<link rel="alternate" type="application/atom+xml" title=" &raquo; ATOM 1.0" href="feed/atom/index.xml" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" href="/assets/css/main.css" />
+<link rel="stylesheet" href="/assets/css/solarized-light.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+<div id="base-container">
+<main id="base-main" aria-label="Content">
+<article class="post-main">
+<header>
+<a href="/docs/">« Back</a>
+<div class="post-title">
+<h1> Markdown: Cheat Sheet</h1>
+</div>
+<p class="post-meta">
+<span class="post-meta-time" title="2023-05-29 22:38:00">2023-05-29 22:38:00</span>
+<span class="post-meta-author" title="hantang">hantang</span>
+</p>
+</header>
+<section class="post-toc">
+<details class="toc" open>
+<summary>TABLE OF CONTENTS</summary>
+<ul>
+<li><a href="#基本语法">基本语法</a>
+<ul>
+<li><a href="#标题heading, `H1-H6`">标题heading, H1-H6</a></li>
+<li><a href="#段落和换行符">段落和换行符</a></li>
+<li><a href="#引用">引用</a></li>
+<li><a href="#无序列表、有序列表">无序列表、有序列表</a></li>
+<li><a href="#分隔线">分隔线</a></li>
+<li><a href="#链接">链接</a></li>
+<li><a href="#图片">图片</a></li>
+<li><a href="#强调（斜体、粗体）">强调（斜体、粗体）</a></li>
+<li><a href="#（行内）代码">（行内）代码</a></li>
+<li><a href="#代码块">代码块</a></li>
+</ul>
+</li>
+<li><a href="#扩展语法">扩展语法</a>
+<ul>
+<li><a href="#任务列表">任务列表</a></li>
+<li><a href="#表格">表格</a></li>
+<li><a href="#数学公式">数学公式</a></li>
+<li><a href="#脚注">脚注</a></li>
+<li><a href="#目录">目录</a></li>
+<li><a href="#标题编号">标题编号</a></li>
+<li><a href="#删除线">删除线</a></li>
+<li><a href="#Front Matter">Front Matter</a></li>
+<li><a href="#流程图【略】">流程图【略】</a></li>
+<li><a href="#其他">其他</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</section>
+<section class="post-content">
+<blockquote>
+<p>参考自:</p>
+<ul>
+<li><a href="https://markdown.com.cn/cheat-sheet.html">https://markdown.com.cn/cheat-sheet.html</a></li>
+<li><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/</a></li>
+</ul>
+</blockquote>
+<h2 id="基本语法">基本语法</h2>
+<h3 id="标题heading, `H1-H6`">标题heading, <code>H1-H6</code></h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="gh"># 这是 H1</span>
+<span class="gu">## 这是 H2</span>
+<span class="gu">### 这是 H3</span>
+<span class="gu">#### 这是 H4</span>
+<span class="gu">##### 这是 H5</span>
+<span class="gu">##### 这是 H6</span>
+</code></pre></div>
+<h3 id="段落和换行符">段落和换行符</h3>
+<div class="highlight language-markdown"><pre><code><span></span>段落1：段落之间间隔1行及以上的空白行
+段落2
+段落3部分1(方式1：尾部有2个空格)
+部分2(方式2：html-br标签换行)&lt;br&gt;
+部分3(方式3：反斜杠，不推荐)\
+</code></pre></div>
+<h3 id="引用">引用</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">&gt; </span><span class="ge">这是一个引用段落</span>
+<span class="k">&gt;</span>
+<span class="ge">&gt; 引用段落2**加粗**</span>
+<span class="k">&gt;</span>
+<span class="ge">&gt; ## 某个标题</span>
+&gt;&gt; 嵌套引用
+</code></pre></div>
+<h3 id="无序列表、有序列表">无序列表、有序列表</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">*</span><span class="w"> </span>无序列表（用`*`,`-`或`+`，可以嵌套）
+<span class="k">*</span><span class="w"> </span>项目A
+<span class="w">    </span><span class="k">*</span><span class="w"> </span>子项目A1
+<span class="w">    </span><span class="k">*</span><span class="w"> </span>子项目A1
+<span class="k">*</span><span class="w"> </span>项目B
+<span class="k">*</span><span class="w"> </span>项目C
+<span class="k">1.</span> 有序列表（`数字.`，数字实际值不重要）
+<span class="k">1.</span> 有序2
+<span class="k">2.</span> 还是有序
+</code></pre></div>
+<h3 id="分隔线">分隔线</h3>
+<div class="highlight language-markdown"><pre><code><span></span>连续3个以上减号、星号、下划线，单独一行
+---
+***
+___
+</code></pre></div>
+<h3 id="链接">链接</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">*</span><span class="w"> </span>行内链接：
+This is [<span class="nt">an example</span>](<span class="na">http://example.com/ &quot;Title&quot;</span>) inline link.
+[<span class="nt">This link</span>](<span class="na">http://example.net/</span>) has no title attribute.
+<span class="k">*</span><span class="w"> </span>参考链接：方括号引用
+This is [<span class="nt">an example</span>][<span class="nl">id</span>] reference-style link.
+[<span class="nl">id</span>]: <span class="na">http://example.com/  &quot;Optional Title Here&quot;</span>
+<span class="k">*</span><span class="w"> </span>自动链接：尖括号
+&lt;http://example.com/&gt;
+</code></pre></div>
+<h3 id="图片">图片</h3>
+<div class="highlight language-markdown"><pre><code><span></span>和链接语法相似
+![<span class="nt">Alt text</span>](<span class="na">/path/to/img.jpg</span>)
+![<span class="nt">Alt text</span>](<span class="na">/path/to/img.jpg &quot;Optional title&quot;</span>)
+</code></pre></div>
+<h3 id="强调（斜体、粗体）">强调（斜体、粗体）</h3>
+<div class="highlight language-markdown"><pre><code><span></span>强调（斜体&lt;em&gt;）
+<span class="ge">*斜体*</span>
+<span class="ge">_斜体_</span>
+粗体(&lt;strong&gt;)
+<span class="gs">**double asterisks**</span>
+加粗强调（加粗斜体）
+***加粗斜体***
+补充：\* 进行转义
+</code></pre></div>
+<h3 id="（行内）代码">（行内）代码</h3>
+<div class="highlight language-markdown"><pre><code><span></span>用单个反引号
+Use the <span class="sb">`printf()`</span> function.
+``Use <span class="sb">`code`</span> in your Markdown file.`` （``转义，内部有反引号）
+</code></pre></div>
+<h3 id="代码块">代码块</h3>
+<div class="highlight language-markdown"><pre><code><span></span>+ 方式1: 缩进4个空格
+print(&quot;Hello&quot;)
++ 方式2: 3个反引号
+<span class="sb">    ```c</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="sb">    ```</span>
+</code></pre></div>
+<h2 id="扩展语法">扩展语法</h2>
+<h3 id="任务列表">任务列表</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">- [ ]</span> 无需列表后增加`[]`，中间空表示未完成，中间x表示完成
+<span class="w">    </span><span class="k">- [x]</span> 完成了
+<span class="w">    </span><span class="k">- [ ]</span> 没完成
+<span class="k">- [x]</span> 也完成了
+</code></pre></div>
+<h3 id="表格">表格</h3>
+<ul>
+<li>语法：</li>
+</ul>
+<div class="highlight language-markdown"><pre><code><span></span>| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+</code></pre></div>
+<ul>
+<li>输出：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Left-Aligned</th>
+<th style="text-align:center">Center Aligned</th>
+<th style="text-align:right">Right Aligned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">col 3 is</td>
+<td style="text-align:center">some wordy text</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td style="text-align:left">col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td style="text-align:left">zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数学公式">数学公式</h3>
+<div class="highlight language-markdown"><pre><code><span></span>行内公式$a^2+b^2=c^2$
+行间公式
+$$
+E = mc^2
+$$
+</code></pre></div>
+<h3 id="脚注">脚注</h3>
+<div class="highlight language-markdown"><pre><code><span></span>在这段文字后添加一个脚注[^footnote]。
+[<span class="nl">^footnote</span>]: <span class="na">这里是脚注的内容。</span>
+</code></pre></div>
+<h3 id="目录">目录</h3>
+<div class="highlight language-markdown"><pre><code><span></span>[toc]
+</code></pre></div>
+<h3 id="标题编号">标题编号</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="gu">### My Great Heading {#custom-id}</span>
+</code></pre></div>
+<h3 id="删除线">删除线</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="gd">~~删除线~~</span>
+</code></pre></div>
+<h3 id="Front Matter">Front Matter</h3>
+<div class="highlight language-markdown"><pre><code><span></span>比如一组3个横线包括的YAML语法段落，比如
+---
+title: &quot;文章标题&quot;
+athor: &quot;我&quot;
+date: 2023-01-01
+---
+</code></pre></div>
+<h3 id="流程图【略】">流程图【略】</h3>
+<h3 id="其他">其他</h3>
+<div class="highlight language-markdown"><pre><code><span></span><span class="k">*</span><span class="w"> </span>下划线，直接HTML标签：&lt;u&gt;Underline&lt;/u&gt;
+<span class="k">*</span><span class="w"> </span>Emoji, 用emoji shortcode: :smile:
+<span class="k">*</span><span class="w"> </span>上标：x^2, x&lt;sup&gt;2&lt;/sup&gt;
+<span class="k">*</span><span class="w"> </span>下标：H_2, H&lt;sub&gt;2&lt;/sub&gt;
+<span class="k">*</span><span class="w"> </span>直接用HTML标签
+</code></pre></div>
+</section>
+<footer class="post-footer">
+<nav class="pagination">
+<a class="prev" href="/docs/markdown-basic-zh/">«&nbsp;&nbsp;Prev</a>
+<a class="next" href="/docs/katex-example/">Next&nbsp;&nbsp;»</a>
+</nav>
+</footer>
+</article>
+</main>
+</div>
+</body>
+</html>

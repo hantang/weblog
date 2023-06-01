@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "Megrim";
+    src: url("../fonts/Megrim.ttf")
+}
+
+.header-h,
+.header-menu {
+    font-family: "Megrim", helvetica, monospace, sans-serif, serif;
+}
+
+.header-h p {
+    padding-left: 2rem;
+    font-size: larger;
+    font-style: oblique;
+}
+
+.header-menu nav ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding-inline-start: 0;
+}
+
+.header-menu ul li {
+    list-style: none;
+    font-size: x-large;
+    font-weight: bold;
+}

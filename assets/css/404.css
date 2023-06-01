@@ -1,0 +1,53 @@
+.error-header,
+.error-container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.error-header {
+    font-size: 5rem;
+    font-weight: bold;
+    font-family: "Open Sans", monospace;
+    margin: 0;
+}
+
+.error-container {
+    font-size: 8rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bolder;
+}
+
+.error-container>span {
+    display: inline-block;
+    position: relative;
+    color: rgba(243,104,56, 0.75);
+
+    animation-duration: 10s;
+    animation-name: rotatescale;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+
+.error-container>span:nth-of-type(1)>span {
+    color: rgba(237,83,54,0.75);
+}
+
+.error-container>span:nth-of-type(3)>span {
+    color: rgba(255,70,31,0.75);
+}
+
+@keyframes rotatescale {
+    0%   { transform: rotateX(0); }
+    10%  { transform: rotateX(40deg);  }
+    25%  { transform: rotateX(150deg) scale(0.75) translate(-100%, -100%);}
+    35%  { transform: rotate(70deg); }
+    45%  { transform: rotateY(170deg); }
+    50%  { transform: rotateX(50deg) scale(0.55) translate(100%, 100%);}
+    55%  { transform: rotate(250deg);}
+    65%  { transform: rotateY(300deg); }
+    75%  { transform: rotateX(250deg) scale(0.65) translate(100%, -100%);}
+    90%  { transform: rotate(180deg); }
+    100% { transform: rotateX(360deg); }
+}

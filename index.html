@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+<title>Weblog Archipelago</title>
+<link rel="alternate" type="application/rss+xml" title=" &raquo; RSS 2.0" href="feed/index.xml" />
+<link rel="alternate" type="application/atom+xml" title=" &raquo; ATOM 1.0" href="feed/atom/index.xml" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" href="/assets/css/main.css" />
+<link rel="stylesheet" href="/assets/css/header.css" />
+<link rel="stylesheet" href="/assets/css/footer.css" />
+</head>
+<body>
+<div id="base-container">
+<header id="base-header">
+<hgroup class="header-h">
+<h1>༼ つ ◕‿◕ ༽つ WRITING & ART ARCHIPELAGO</h1>
+<p>... write blogs and have fun ...</p>
+</hgroup>
+<section class="header-menu">
+<nav id="menu">
+<ul>
+<li><a href="/">HOME</a></li>
+<li><a href="/posts/">POSTS</a></li>
+<li><a href="/essays/">ESSAYS</a></li>
+<li><a href="/docs/">DOCS</a></li>
+<li><a href="/about/">ABOUT</a></li>
+</ul>
+</nav>
+</section>
+<hr class="header-hr">
+</header>
+<main id="base-main" aria-label="Content">
+<article class="post-main">
+<section class="post-content">
+<h1 id="Hi I'm hantang.">Hi I'm hantang.</h1>
+<p><img src="robson-hatsukami-morgan--wEFdRCG4IU-unsplash.jpg" alt="" title="" /></p>
+<h2 id="`Weblog`"><code>Weblog</code></h2>
+<p><code>Weblog</code> is a simple static blog generator built with python.</p>
+<p>This is demonstration site of <code>weblog</code>, and images are mainly
+downloaded from <code>unsplash.com</code></p>
+</section>
+</article>
+</main>
+<footer id="base-footer">
+<hr class="footer-hr">
+<div class="footer-parts">
+<section class="footer-copyright">
+<span>
+&copy; <a href="">HANTANG </a><span id="copyright-year"></span>. ALL
+RIGHTS RESERVED.
+</span>
+</section>
+<section class="footer-tech">
+<span> POWERED BY PYBLOGBUILDER </span>
+</section>
+<section class="footer-social">
+<span class="footer-social-links"><a href=>GITHUB</a></span>
+<span class="footer-social-links"><a href=>TWITTER</a></span>
+<span class="footer-social-links"><a href=>DISCORD</a></span>
+</section>
+</section>
+</div>
+<script>
+function getYear(sinceDatetime) {
+let thisYear = new Date().getFullYear();
+let sinceYear = null;
+let output = thisYear;
+if (typeof (sinceDatetime) !== "undefined" && !isNaN(Date.parse(sinceDatetime)))
+sinceYear = new Date(Date.parse(sinceDatetime)).getFullYear()
+if (sinceYear !== null && sinceYear !== thisYear)
+output = sinceYear + " - " + thisYear
+document.getElementById("copyright-year").innerHTML = output
+};
+getYear("2021");
+</script>
+</footer>        </div>
+</body>
+</html>
