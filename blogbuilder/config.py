@@ -28,9 +28,15 @@ class BlogConfig:
         self._theme = self._config["theme"]
         self._author = self._config["author"]
 
+        self._url = self._config.get("url", "").strip()
+        url_base = self._url.split(":")[-1].strip("/")
+        self._url_suffix = "/".join(url_base.split(".")[-1].split("/")[1:])
+        if self._url_suffix != "":
+            self._url_suffix = "/" + self._url_suffix
+
+        self._menu2 = self._proc_menu()
         self._params = self._proc_params()
         self._meta_params = self._proc_meta()
-        self._menu2 = self._proc_menu()
 
         self._remained_dir = ["assets", "static", "drafts", "archives", "page"]
         self._max_depth = 3
@@ -40,16 +46,19 @@ class BlogConfig:
         for entry in self._menu:
             menu.append({
                 "topic": entry["url"].strip().strip("/"),
-                "url": entry["url"].strip(),
+                "url": "{}/{}/".format(self.url_suffix, entry["url"].strip().strip("/")),
                 "name": entry["name"].strip(),
                 "weight": int(entry["weight"]),
             })
         return menu
 
     def _proc_params(self):
-        return {
-            key: self._config[key] for key in ["url", "title", "author", "menu", "site", "page", "info"]
+        params = {
+            key: self._config[key] for key in ["url", "title", "author", "site", "page", "info"]
         }
+        params["url_suffix"] = self._url_suffix
+        params["menu"] = self._menu2
+        return params
 
     def _proc_meta(self):
         # inherit_keys = ["author", "layout", "date", "page", "paginate"]
@@ -113,3 +122,7 @@ class BlogConfig:
     @property
     def meta_params(self):
         return self._meta_params
+
+    @property
+    def url_suffix(self):
+        return self._url_suffix
