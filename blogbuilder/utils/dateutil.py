@@ -1,4 +1,5 @@
 import logging
+import os
 
 import pendulum
 
@@ -53,3 +54,12 @@ def get_deltatime(start, end):
 
 def parse2date(datetime, strict=True):  # type: (str, bool) -> pendulum.DateTime
     return pendulum.parse(datetime, strict=strict)
+
+
+def get_filetime(filepath):
+    try:
+        filetime = os.path.getctime(filepath)
+    except:
+        logging.error(f"error read create time in {filepath}")
+        filetime = pendulum.now().timestamp()
+    return pendulum.from_timestamp(filetime, pendulum.now().tz).to_datetime_string()
