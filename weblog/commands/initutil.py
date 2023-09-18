@@ -72,7 +72,7 @@ def _read_input():
     return title, initials, description, author, base_url
 
 
-def init(path, query, encoding="utf-8"):
+def init(path, query, url, encoding="utf-8"):
     """
     # project dir skeleton
     blog-site/
@@ -103,7 +103,7 @@ def init(path, query, encoding="utf-8"):
     if query:
         title, initials, description, author, base_url = _read_input()
     else:
-        title, initials, description, author, base_url = None, None, None, None, None
+        title, initials, description, author, base_url = None, None, None, None, url
     title = nvl(title, "My Awesome Blog").strip()
     initials = nvl(initials, title).strip()
     description = nvl(description, "A weblog Site").strip()
@@ -123,7 +123,7 @@ def init(path, query, encoding="utf-8"):
     BASEDIR = SiteSkeleton.BASEDIR
     config_template = Path(BASEDIR, SiteSkeleton.config_template)
     config_local = Path(site_path, SiteSkeleton.config)
-    raw_config = loadf_config(config_template, encoding=encoding)
+    raw_config = loadf_config(str(config_template), encoding=encoding)
 
     raw_config['url'] = base_url
     raw_config["title"] = title

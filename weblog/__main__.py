@@ -32,11 +32,12 @@ def cli():
 
 @cli.command()
 @click.option("--path", type=str, default="blog-site")
+@click.option("--url", type=str, default="")
 @click.option("--query", is_flag=True)
 # @click.option('--conf', type=str, default="")
 # @click.option('--theme', type=str, default="")
-def init(path, query):
-    initutil.init(path, query)
+def init(path, query, url):
+    initutil.init(path, query, url)
 
 
 @cli.command()

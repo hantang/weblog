@@ -28,9 +28,11 @@ class BlogConfig:
         self._theme = self._config["theme"]
         self._author = self._config["author"]
 
+        # remove domain, keep remain paths
         self._url = self._config.get("url", "").strip()
         url_base = self._url.split(":")[-1].strip("/")
-        self._url_suffix = "/".join(url_base.split(".")[-1].split("/")[1:])
+        url_idx = 1 if "." in url_base else 0
+        self._url_suffix = "/".join(url_base.split(".")[-1].split("/")[url_idx:])
         if self._url_suffix != "":
             self._url_suffix = "/" + self._url_suffix
 
