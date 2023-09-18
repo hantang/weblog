@@ -1,6 +1,6 @@
 """toml/yaml configuration files or strings check and load"""
 import logging
-import os
+from pathlib import Path
 
 import toml
 import yaml
@@ -17,14 +17,15 @@ TOML_SEP = "=" * 3
 
 def loadf_config(filename: str, encoding: str = "utf-8") -> dict:
     data = {}
-    if not os.path.exists(filename):
+    filepath = Path(filename)
+    if not filepath.exists():
         logging.error(f"??? config {filename} NOT EXISTS")
         return data
 
     filetype = check_config_type(filename)
     logging.debug(f"==>> {filename} type = `{filetype}`")
 
-    with open(filename, encoding=encoding) as f:
+    with open(filepath, encoding=encoding) as f:
         if filetype == YAML_SUFFIX:
             data = yaml.safe_load(f)
         elif filetype == TOML_SUFFIX:

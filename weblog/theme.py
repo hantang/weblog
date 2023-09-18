@@ -1,7 +1,6 @@
 """generate html files with jinja2 templates"""
 import logging
 import math
-import os
 import shutil
 from collections import defaultdict
 from pathlib import Path, PurePath
@@ -349,7 +348,7 @@ class BlogTheme:
             save_path = PurePath(save_path, save_dir)
         images = page.get_images()
         for img_path in images:
-            if os.path.exists(img_path):
+            if Path(img_path).exists():
                 new_path = PurePath(save_path, PurePath(img_path).name)
                 logging.debug(f"==>> copy {img_path} to {new_path}")
                 shutil.copyfile(img_path, new_path)

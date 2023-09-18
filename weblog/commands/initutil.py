@@ -6,6 +6,7 @@ import toml
 import shutil
 
 from weblog.process import SiteSkeleton
+from weblog.utils.configutil import loadf_config
 
 def _demo_post(now):
     post = f"""
@@ -67,10 +68,11 @@ def _read_input():
     description = input("Site description:\n")
     # theme = input("Use Default theme:\n")
     author = input("Author name:\n")
-    return title, initials, description, author
+    base_url = input("Site url:\n")
+    return title, initials, description, author, base_url
 
 
-def init(path, query):
+def init(path, query, encoding="utf-8"):
     """
     # project dir skeleton
     blog-site/
@@ -99,13 +101,14 @@ def init(path, query):
 
     logging.info("Read basic info")
     if query:
-        title, initials, description, author = _read_input()
+        title, initials, description, author, base_url = _read_input()
     else:
-        title, initials, description, author = None, None, None, None
+        title, initials, description, author, base_url = None, None, None, None, None
     title = nvl(title, "My Awesome Blog").strip()
     initials = nvl(initials, title).strip()
     description = nvl(description, "A weblog Site").strip()
     author = nvl(author, "Someone").strip()
+    base_url = nvl(base_url, "").strip()
     now = pendulum.now("UTC").format("YYYY-MM-DD HH:mm:ss")
 
     logging.info(f"""settings:
@@ -120,14 +123,16 @@ def init(path, query):
     BASEDIR = SiteSkeleton.BASEDIR
     config_template = Path(BASEDIR, SiteSkeleton.config_template)
     config_local = Path(site_path, SiteSkeleton.config)
-    # _config = loadf_config(config_template, encoding="utf-8")
-    raw_config = toml.load(config_template)
+    raw_config = loadf_config(config_template, encoding=encoding)
+
+    raw_config['url'] = base_url
     raw_config["title"] = title
     raw_config["site"]["initials"] = initials
     raw_config["site"]["description"] = description
     raw_config["author"]["name"] = author
+
     logging.info(f"config_local = {config_local}")
-    with open(config_local, "w") as fw:
+    with open(config_local, "w", encoding=encoding) as fw:
         toml.dump(raw_config, fw)
 
     logging.info("Create content and posts")
@@ -148,7 +153,7 @@ def init(path, query):
         # logging.info(f"mkdir={edir}, file={efile}")
         if not data_dir.exists():
             data_dir.mkdir()
-        with open(data_file, "w") as f:
+        with open(data_file, "w", encoding=encoding) as f:
             f.write(entry["text"])
 
     logging.info("Copy builtin theme")
