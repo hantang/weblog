@@ -1,5 +1,5 @@
 url = ""
-title = "someone's weblog"
+title = "My Awesome Blog"
 theme = "theme-vanilla"
 
 [[menu]]
@@ -10,18 +10,18 @@ theme = "theme-vanilla"
     name = "Posts"
     url = "/posts/"
     weight = 20
-[[menu]]
-    name = "Projects"
-    url = "/projects/"
-    weight = 21
+# [[menu]]
+#     name = "Projects"
+#     url = "/projects/"
+#     weight = 21
 [[menu]]
     name = "About"
     url = "/about/"
     weight = 30
 
 [site]
-    initials = "༼ つ ◕‿◕ ༽つ My Weblog"
-    description = "... write blogs and have fun ..."
+    initials = "My Awesome Blog"
+    description = "A weblog Site"
     # favicon = "favicon.ico"
     keywords = ["blog", "tech"]
     # languageCode = "en-us"
@@ -31,7 +31,7 @@ theme = "theme-vanilla"
     sitemap = "sitemap.xml"
 
 [author]
-    name = "someone"
+    name = "Someone"
     email = ""
 
 [taxonomies]
