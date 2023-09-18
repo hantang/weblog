@@ -57,6 +57,22 @@ python -m http.server -d deploy
 python -m weblog clean
 ```
 
+## Build Packages
+
+```bash
+# ref: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+# pypython.toml
+# install dependencies
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade build
+
+# build to wheel
+python3 -m build
+
+# install
+pip install dist/weblog-0.0.2-py3-none-any.whl
+```
+
 ## Themes
 
 ### theme-vanilla
