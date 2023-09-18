@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "weblog"
+version = "0.0.2"
+description = "A python static blog generator."
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT" # { file = "LICENSE" }
+# keywords = ["sample", "setuptools", "development"]
+authors = [{ name = "hantang", email = " hantang@ht.dev" }]
+# maintainers = [ ]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Topic :: Documentation",
+  "Topic :: Text Processing",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
+]
+dynamic = ["version"]
+
+dependencies = [
+  "Jinja2", 
+  "mistune", 
+  "pendulum", 
+  "Pygments", 
+  "PyYAML", 
+  "toml"
+]
+# [project.optional-dependencies] # Optional
+# dev = ["check-manifest"]
+# test = ["coverage"]
+
+[project.urls]
+"Homepage" = "https://github.com/hantang/weblog"
+"Source" = "https://github.com/hantang/weblog"
+# "Bug Reports" = "https://github.com/pypa/sampleproject/issues"
+# "Funding" = "https://donate.pypi.org"
+# "Say Thanks!" = "http://saythanks.io/to/example"
+# "Document" = ""
+# History = ""
+
+# [project.scripts] # Optional
+# sample = "sample:main"
