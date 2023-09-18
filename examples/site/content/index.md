@@ -6,5 +6,5 @@ cover:
 
 ## More examples
 
-* [blog](/blog)
-* [notes](/notes)
+* [blog](/weblog/blog)
+* [notes](/weblog/notes/)
