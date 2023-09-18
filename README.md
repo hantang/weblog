@@ -43,7 +43,7 @@ pip install .
 
 # then cd <somewhere>
 # init project (default site-name is blog-site)
-python -m weblog init [--path site-name] [--query]
+python -m weblog init [--path site-name] [--query] [--url url-path]
 
 # build the site
 cd <site-name>
