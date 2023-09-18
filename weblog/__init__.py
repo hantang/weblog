@@ -1,6 +1,9 @@
+__version__ = "0.0.2"
+__name__ = "weblog"
+
 import argparse
 import logging
-from blogbuilder.process import BlogBuilder
+from .process import BlogBuilder
 
 
 def get_parser():
@@ -15,5 +18,5 @@ def run():
     builder.build_all()
 
 
-if __name__ == "__main__":
+def main():
     run()
