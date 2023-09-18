@@ -5,7 +5,7 @@ import pendulum
 import toml
 import shutil
 
-from process import SiteSkeleton
+from weblog.process import SiteSkeleton
 
 def _demo_post(now):
     post = f"""
@@ -27,7 +27,7 @@ def _demo_post(now):
     more words...
     
     """
-    return dedent(post)
+    return dedent(post).lstrip()
 
 
 def _demo_about(now):
@@ -40,7 +40,7 @@ def _demo_about(now):
 
     ## About
     """
-    return dedent(text)
+    return dedent(text).lstrip()
 
 
 def _demo_index(now, title, description=""):
@@ -52,7 +52,7 @@ def _demo_index(now, title, description=""):
     description: "{description}"
     ---
     """
-    return dedent(text)
+    return dedent(text).lstrip()
 
 
 def nvl(val, default_val):
@@ -70,7 +70,7 @@ def _read_input():
     return title, initials, description, author
 
 
-def init(path):
+def init(path, query):
     """
     # project dir skeleton
     blog-site/
@@ -84,37 +84,49 @@ def init(path):
         - themes/
         - deploy/
     """
-    path = Path(path)
-    if path.exists():
-        if path.is_file():
-            logging.error(f"Error, path={path} is a file and exits")
+    site_path = Path(path)
+    if site_path.exists():
+        if site_path.is_file():
+            logging.error(f"Error, site path={site_path} is a file and exits")
             return False
         else:
-            for sub in path.iterdir():
-                logging.error(f"Error, path={path} is a dir and not empty")
+            for sub in site_path.iterdir():
+                logging.error(f"Error, site path={site_path} is a dir and not empty")
                 return False
     else:
-        logging.info(f"Make site dir = {path}")
-        path.mkdir()
+        logging.info(f"Make site dir = {site_path}")
+        site_path.mkdir()
 
     logging.info("Read basic info")
-    title, initials, description, author = _read_input()
+    if query:
+        title, initials, description, author = _read_input()
+    else:
+        title, initials, description, author = None, None, None, None
     title = nvl(title, "My Awesome Blog").strip()
     initials = nvl(initials, title).strip()
     description = nvl(description, "A weblog Site").strip()
     author = nvl(author, "Someone").strip()
     now = pendulum.now("UTC").format("YYYY-MM-DD HH:mm:ss")
 
+    logging.info(f"""settings:
+        title={title}
+        initials={initials}
+        description={description}
+        author={author}
+        """)
+
     logging.info("Create configurations")
     # update config
-    config_template = SiteSkeleton.config_template
-    config_local = Path(path, SiteSkeleton.config)
+    BASEDIR = SiteSkeleton.BASEDIR
+    config_template = Path(BASEDIR, SiteSkeleton.config_template)
+    config_local = Path(site_path, SiteSkeleton.config)
     # _config = loadf_config(config_template, encoding="utf-8")
     raw_config = toml.load(config_template)
     raw_config["title"] = title
     raw_config["site"]["initials"] = initials
     raw_config["site"]["description"] = description
     raw_config["author"]["name"] = author
+    logging.info(f"config_local = {config_local}")
     with open(config_local, "w") as fw:
         toml.dump(raw_config, fw)
 
@@ -131,17 +143,18 @@ def init(path):
         {"name": "first-post.md", "text": _demo_post(now), "dir": posts_dir},
     ]
     for entry in files:
-        edir = Path(entry["dir"])
-        efile = Path(edir, entry["name"])
-        if not edir.exists():
-            edir.mkdir()
-        with open(efile) as f:
+        data_dir = Path(site_path, entry["dir"])
+        data_file = Path(data_dir, entry["name"])
+        # logging.info(f"mkdir={edir}, file={efile}")
+        if not data_dir.exists():
+            data_dir.mkdir()
+        with open(data_file, "w") as f:
             f.write(entry["text"])
 
     logging.info("Copy builtin theme")
     theme_name = raw_config["theme"]
-    themes_local = Path(path, SiteSkeleton.themes)
-    theme_template = Path(SiteSkeleton.themes, theme_name)
+    themes_local = Path(site_path, SiteSkeleton.themes)
+    theme_template = Path(BASEDIR, SiteSkeleton.themes, theme_name)
     if not themes_local.exists():
         themes_local.mkdir()
 

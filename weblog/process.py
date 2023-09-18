@@ -15,6 +15,7 @@ from weblog.utils.pathutil import is_index_filename, obtain_file_stem, split_pat
 # todo
 class SiteSkeleton:
     # 基本的目录结构
+    BASEDIR = os.path.dirname(os.path.abspath(__file__))
     content = "content/"
     content_posts = f"{content}posts/"
     deploy = "deploy/"
