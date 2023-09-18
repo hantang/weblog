@@ -1,6 +1,6 @@
-Jinja2==3.1.2
-mistune==3.0.0rc5
-pendulum==2.1.2
-Pygments==2.15.1
-PyYAML==6.0
-toml==0.10.2
+Jinja2
+mistune
+pendulum
+Pygments
+PyYAML
+toml
