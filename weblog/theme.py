@@ -7,11 +7,11 @@ from collections import defaultdict
 from pathlib import Path, PurePath
 from typing import List
 
-from .config import BlogConfig
-from .content import BlogContent
-from .utils import extrautil
-from .utils.dateutil import get_date_part
-from .utils.tplutil import TemplateUtil
+from weblog.config import BlogConfig
+from weblog.content import BlogContent
+from weblog.utils import extrautil
+from weblog.utils.dateutil import get_date_part
+from weblog.utils.tplutil import TemplateUtil
 
 
 class ThemeSkeleton:

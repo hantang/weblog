@@ -6,10 +6,10 @@ import os
 import re
 from pathlib import PurePath
 
-from .utils.dateutil import get_date_part, get_datetime, get_filetime
-from .utils.fileutil import divide_textfile
-from .utils.mdutil import MarkdownParser
-from .utils.pathutil import concat_path, is_index_filename, obtain_file_stem, obtain_file_suffix
+from weblog.utils.dateutil import get_date_part, get_datetime, get_filetime
+from weblog.utils.fileutil import divide_textfile
+from weblog.utils.mdutil import MarkdownParser
+from weblog.utils.pathutil import concat_path, is_index_filename, obtain_file_stem, obtain_file_suffix
 
 
 class BlogMeta:

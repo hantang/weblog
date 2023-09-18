@@ -2,7 +2,7 @@ import logging
 
 import pendulum
 
-from .utils.configutil import loadf_config
+from weblog.utils.configutil import loadf_config
 
 
 class BlogConfig:

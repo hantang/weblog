@@ -3,7 +3,7 @@ import logging
 import os
 from typing import List
 
-from .pathutil import is_hidden_file, obtain_file_suffix
+from weblog.utils.pathutil import is_hidden_file, obtain_file_suffix
 
 flag_include = "^"
 flag_type = "*"

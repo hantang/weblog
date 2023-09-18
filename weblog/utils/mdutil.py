@@ -9,7 +9,7 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 
-from blogbuilder.utils.fileutil import get_img_pattern
+from weblog.utils.fileutil import get_img_pattern
 
 
 def heading_id(token, index):
