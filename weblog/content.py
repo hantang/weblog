@@ -2,9 +2,8 @@
 markdown文件内容解析
 """
 import logging
-import os
 import re
-from pathlib import PurePath
+from pathlib import Path, PurePath
 
 from weblog.utils.dateutil import get_date_part, get_datetime, get_filetime
 from weblog.utils.fileutil import divide_textfile
@@ -245,7 +244,7 @@ class BlogContent:
         1. 元数据信息解析, 得到url
         2. 正文内容解析，得到图片路径
         """
-        if os.path.exists(self.filepath):
+        if Path(self.filepath).exists():
             (meta_raw, meta_type, meta_data), body_raw = divide_textfile(self.filepath, self.charset)
         else:
             logging.warning(f"!!! content path({self.filepath}) not exits")
