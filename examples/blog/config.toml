@@ -1,0 +1,66 @@
+url = "https://hantang.github.io/weblog/blog"
+title = "Hantang's Weblog Archipelago"
+theme = "theme-vanilla"
+
+[[menu]]
+    name = "Home"
+    url = "/"
+    weight = 10
+[[menu]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 20
+[[menu]]
+    name = "Essays"
+    url = "/essays/"
+    weight = 21
+[[menu]]
+    name = "Docs"
+    url = "/docs/"
+    weight = 22
+[[menu]]
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[site]
+    initials = "༼ つ ◕‿◕ ༽つ Writing & Art Archipelago"
+    description = "... write blogs and have fun ..."
+    # favicon = "favicon.ico"
+    keywords = ["blog", "tech"]
+    # languageCode = "en-us"
+    # defaultContentLanguage = "en"
+    # hasCJKLanguage = true
+    paginate = 5
+    sitemap = "sitemap.xml"
+
+[author]
+    name = "hantang"
+    email = ""
+
+[taxonomies]
+    cate = false
+    tag = false
+    series = false
+
+[page]
+    toc = true
+    math = "katex"
+    markup = "md"
+
+[info]
+    power = "weblog"
+    since = "2021-05-22"
+    beian = ""
+    [[info.social]]
+        name = "Github"
+        link = ""
+        icon = ""
+    [[info.social]]
+        name = "Twitter"
+        link = ""
+        icon = ""
+    [[info.social]]
+        name = "Discord"
+        link = ""
+        icon = ""

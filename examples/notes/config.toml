@@ -1,0 +1,40 @@
+url = "https://hantang.github.io/weblog/notes"
+title = "Notes"
+# theme = "theme-base"
+theme = "theme-vanilla"
+
+[[menu]]
+    name = "Home"
+    url = "/"
+    weight = 10
+[[menu]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 20
+[[menu]]
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[site]
+    initials = "Notes"
+    description = "... take notes ..."
+    paginate = 0
+    sitemap = "sitemap.xml"
+
+[author]
+    name = "hantang"
+    email = ""
+
+[taxonomies]
+    cate = false
+    tag = false
+    series = false
+
+[page]
+    toc = true
+    math = "katex"
+    markup = "md"
+
+[info]
+    since = "2023"
