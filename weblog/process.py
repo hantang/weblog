@@ -4,20 +4,24 @@ import os
 import shutil
 from pathlib import Path
 
-from .config import BlogConfig
-from .content import BlogContent
-from .theme import BlogTheme
-from .utils.dateutil import get_datetime, get_deltatime, get_time_now
-from .utils.dirutil import get_keep_dirs, get_keep_files, walk
-from .utils.pathutil import is_index_filename, obtain_file_stem, split_paths
+from weblog.config import BlogConfig
+from weblog.content import BlogContent
+from weblog.theme import BlogTheme
+from weblog.utils.dateutil import get_datetime, get_deltatime, get_time_now
+from weblog.utils.dirutil import get_keep_dirs, get_keep_files, walk
+from weblog.utils.pathutil import is_index_filename, obtain_file_stem, split_paths
 
 
+# todo
 class SiteSkeleton:
     # 基本的目录结构
     content = "content/"
+    content_posts = f"{content}posts/"
     deploy = "deploy/"
-    themes = "../themes/"
+    # themes = "../themes/"
+    themes = "themes/"
     config = "config.toml"
+    config_template = f"config/{config}"
 
 
 class TextTypes:

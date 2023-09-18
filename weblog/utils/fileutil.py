@@ -2,7 +2,7 @@
 import logging
 import re
 
-from .configutil import check_config_sep, loads_config, obtain_config_type
+from weblog.utils.configutil import check_config_sep, loads_config, obtain_config_type
 
 
 def divide_textfile(path, encoding="utf-8"):

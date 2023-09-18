@@ -5,7 +5,7 @@ import os
 import toml
 import yaml
 
-from .pathutil import obtain_file_suffix
+from weblog.utils.pathutil import obtain_file_suffix
 
 YAML_FORMAT = "YAML"
 TOML_FORMAT = "TOML"
