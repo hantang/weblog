@@ -25,49 +25,26 @@ MANIFEST
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
-# linux
-*~
-.Trash-*
-*.snap
-
 # macos
 .DS_Store
-.AppleDouble
-.LSOverride
 
-# windows
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-*.stackdump
-[Dd]esktop.ini
-$RECYCLE.BIN/
+# linux
+*~
 
-# vscode
+# ide
 .vscode/
-.history/
-*.vsix
-
-# jetbrains
 .idea/
 
-# vim Swap
-[._]*.s[a-v][a-z]
-!*.svg
-[._]*.sw[a-p]
-[._]s[a-rt-v][a-z]
-[._]ss[a-gi-z]
-[._]sw[a-p]
-
-# Environments
-backup/
-bak/
+# more
+.trash/
 back/
-temp/
+backup/
 tmp/
+temp/
 todo/
+# src/
 
+# projects
 deploy/
 publish/
 out/
