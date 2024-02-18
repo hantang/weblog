@@ -42,7 +42,6 @@ backup/
 tmp/
 temp/
 todo/
-# src/
 
 # projects
 deploy/
